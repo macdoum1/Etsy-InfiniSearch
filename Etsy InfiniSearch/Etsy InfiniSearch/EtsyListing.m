@@ -10,6 +10,6 @@
 
 @implementation EtsyListing
 
-@synthesize listingTitle,listingImage;
+@synthesize listingTitle,listingImageURL;
 
 @end

@@ -209,7 +209,7 @@
         
         // Get image URL from dictionary & convert to UIImage
         NSDictionary *mainImageDict = [currentResult objectForKey:@"MainImage"];
-        currentListing.listingImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[mainImageDict objectForKey:@"url_170x135"]]]];
+        currentListing.listingImageURL = [mainImageDict objectForKey:@"url_170x135"];
         
         // Add to array
         [searchResultsArray addObject:currentListing];
@@ -256,7 +256,7 @@
     EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
     
     // Set attributes of cell using the listing object
-    cell.listingImage.image = tempListing.listingImage;
+    cell.listingImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempListing.listingImageURL]]];
     cell.listingImage.layer.masksToBounds = YES;
     cell.listingLabel.text = tempListing.listingTitle;
     
