@@ -64,6 +64,49 @@
     
     // Load search results
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:0];
+    
+    // Switch search icon to loading indicator
+    [self toggleSearchIndicator:0];
+    
+}
+
+- (void)toggleSearchIndicator:(BOOL)flag
+{
+    // Get UITextField from UISearchBars subviews
+    UITextField *searchField = nil;
+    for (UIView *subview in [[etsySearchBar.subviews objectAtIndex:0] subviews])
+    {
+        if ([subview isKindOfClass:[UITextField class]])
+        {
+            searchField = (UITextField *)subview;
+            break;
+        }
+    }
+    if(searchField)
+    {
+        if(flag == 0)
+        {
+            // Initialize indicator
+            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            
+            // Store search icon for swapping back later
+            searchIcon = searchField.leftView;
+            
+            // Replace search icon with indicator
+            searchField.leftView = spinner;
+            
+            // Start animating indicator
+            [spinner startAnimating];
+        }
+        else
+        {
+            // Swap indicator for search icon
+            searchField.leftView = searchIcon;
+            
+            // Stop animating indicator
+            [spinner stopAnimating];
+        }
+    }
 }
 
 - (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset
@@ -175,6 +218,9 @@
         // Reset UICollectionView scroll (in case of previous scrolling)
         [searchResultsCollectionView scrollToItemAtIndexPath:0 atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
+    
+    // Switch loading indicator to search icon
+    [self toggleSearchIndicator:1];
     
     // Reset currentlyLoadingMore flag
     currentlyLoadingMore = false;

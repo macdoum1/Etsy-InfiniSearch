@@ -26,6 +26,10 @@
     // Current maximum scroll index
     int maximumScrollIndex;
     BOOL currentlyLoadingMore;
+    
+    // Views need for adding search/loading indicator
+    UIView *searchIcon;
+    UIActivityIndicatorView *spinner;
 }
 
 // UICollectionView to display search results
