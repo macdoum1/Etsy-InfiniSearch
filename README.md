@@ -14,7 +14,7 @@ Appliation that utilizes Etsy's search API to create an infinite scrolling inter
 4. Ensure searching and loading does not effect performance
 5. Stylize UICollectionViewCells <b>Completed</b>
 6. Add loading indicator when searching <b>Completed</b>
-6. Add loading indicator when loading more results
+6. Add loading indicator when loading more results <b>Completed</b>
 
 <b>Wishlist</b>
 -----
