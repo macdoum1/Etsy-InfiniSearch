@@ -23,6 +23,7 @@
 		274EC62D18D51A4800791BEF /* EtsyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC62C18D51A4800791BEF /* EtsyConstants.m */; };
 		274EC63018D51B3200791BEF /* EtsySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC62F18D51B3200791BEF /* EtsySearchViewController.m */; };
 		274EC63318D530D200791BEF /* EtsyListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63218D530D200791BEF /* EtsyListing.m */; };
+		274EC63818D635D100791BEF /* ResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63718D635D100791BEF /* ResultCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		274EC62F18D51B3200791BEF /* EtsySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySearchViewController.m; sourceTree = "<group>"; };
 		274EC63118D530D200791BEF /* EtsyListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsyListing.h; sourceTree = "<group>"; };
 		274EC63218D530D200791BEF /* EtsyListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsyListing.m; sourceTree = "<group>"; };
+		274EC63618D635D100791BEF /* ResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultCell.h; sourceTree = "<group>"; };
+		274EC63718D635D100791BEF /* ResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				274EC60818D51A0A00791BEF /* Main.storyboard */,
 				274EC60E18D51A0A00791BEF /* Images.xcassets */,
 				274EC5FD18D51A0A00791BEF /* Supporting Files */,
+				274EC63618D635D100791BEF /* ResultCell.h */,
+				274EC63718D635D100791BEF /* ResultCell.m */,
 			);
 			path = "Etsy InfiniSearch";
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				274EC63818D635D100791BEF /* ResultCell.m in Sources */,
 				274EC62D18D51A4800791BEF /* EtsyConstants.m in Sources */,
 				274EC60718D51A0A00791BEF /* AppDelegate.m in Sources */,
 				274EC63318D530D200791BEF /* EtsyListing.m in Sources */,

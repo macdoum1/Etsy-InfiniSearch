@@ -114,42 +114,89 @@
 // NSURLConnection didFinishLoading Delegate Method
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSString *responseDataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"Response: %@",responseDataString);
+    NSError *error;
+    // Parse response data to dictionary object using JSONSerialization
+    NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    // Get results and store in NSArray
+    NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
+    
+    // Parse results into EtsyListing objects
+    [self parseSearchResults:allResults];
+}
+
+// Parses search results into EtsyListing objects
+- (void)parseSearchResults:(NSArray *)results
+{
+    for(NSDictionary *currentResult in results)
+    {        
+        // Initialize object
+        EtsyListing *currentListing = [[EtsyListing alloc]init];
+        
+        // Get title from dictionary
+        currentListing.listingTitle = [currentResult objectForKey:@"title"];
+        
+        // Get image URL from dictionary & convert to UIImage
+        NSDictionary *mainImageDict = [currentResult objectForKey:@"MainImage"];
+        currentListing.listingImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[mainImageDict objectForKey:@"url_170x135"]]]];
+        
+        // Add to array
+        [searchResultsArray addObject:currentListing];
+    }
+    
+    // Reload UICollectionView Data
+    [searchResultsCollectionView reloadData];
 }
 
 // Determines how many cells should be shown
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
-    //
-    return 200;
+    // Return size of array/number of search results
+    return [searchResultsArray count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
 {
-    return 1; //PLACEHOLDER
+    // Only one section is needed
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ResultCell" forIndexPath:indexPath];
+    // Dequeue with ID into custom cell
+    ResultCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ResultCell" forIndexPath:indexPath];
     
+    // Get correct listing from searchResultsArray
+    EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
+    
+    // Set attributes of cell using the listing object
     cell.backgroundColor = [UIColor greenColor];
+    cell.listingImage.image = tempListing.listingImage;
+    cell.listingLabel.text = tempListing.listingTitle;
     
+    // Return cell
     return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+/*- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 
 {
     // Returns the size of a particular cell
-    return CGSizeMake(50, 100); //PLACEHOLDER
-}
+    return CGSizeMake(50, 135); //PLACEHOLDER
+}*/
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     // Returns the inset of the UICollection
-    return UIEdgeInsetsMake(10, 5, 0, 5);
+    return UIEdgeInsetsMake(5, 5, 0, 5);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"Index Paths: %@",[searchResultsCollectionView indexPathsForVisibleItems]);
+    
+    NSArray *visibleIndexPaths = [searchResultsCollectionView indexPathsForVisibleItems];
+    
 }
 
 

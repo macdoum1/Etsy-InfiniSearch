@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "EtsyConstants.h"
+#import "EtsyListing.h"
+#import "ResultCell.h"
 
-@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate>
+@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate>
 {
     // Holds NSURLConnection data
     NSMutableData *responseData;
