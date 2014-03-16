@@ -46,6 +46,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="etsySearchBar" destination="8R4-4b-Zl3" id="y35-rn-Wix"/>
                         <outlet property="searchResultsCollectionView" destination="B1Y-t6-5Ig" id="rj6-CI-G2x"/>
                     </connections>
                 </viewController>

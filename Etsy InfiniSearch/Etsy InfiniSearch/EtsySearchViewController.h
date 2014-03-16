@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EtsyConstants.h"
 
-@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate>
+{
+    NSMutableData *responseData;
+}
 
 // UICollectionView to display search results
 @property (nonatomic, strong) IBOutlet UICollectionView *searchResultsCollectionView;
+
+// UISearchBar for entering keywords
+@property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
 
 @end
