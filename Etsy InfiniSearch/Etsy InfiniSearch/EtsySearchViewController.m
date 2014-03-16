@@ -40,15 +40,30 @@
     // Initialize responseData
     responseData = [[NSMutableData alloc]init];
     
+    // Set current offset to zero
+    currentOffset = 0;
+    
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    // Initialize searchResultsArray
+    searchResultsArray = [[NSMutableArray alloc]init];
+    
     // Dismiss keyboard once search is pressed
     [searchBar resignFirstResponder];
+
+    // Ensure the offset is 0 with each new search
+    currentOffset = 0;
     
+    // Load search results
+    [self loadSearchResultsWithKeyword:searchBar.text andOffset:0];
+}
+
+- (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset
+{
     // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@",API_KEY,searchBar.text];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d",API_KEY,keyword,offset];
     
     // Create NSURL object from the URL String
     NSURL *requestURL = [[NSURL alloc]initWithString:urlString];

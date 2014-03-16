@@ -1,16 +1,16 @@
 //
-//  EtsyConstants.h
+//  EtsyListing.h
 //  Etsy InfiniSearch
 //
 //  Created by Michael MacDougall on 3/15/14.
 //  Copyright (c) 2014 Michael MacDougall. All rights reserved.
 //
-//  Constants for Etsy Search API
 
 #import <Foundation/Foundation.h>
 
-#define API_KEY         @"liwecjs0c3ssk6let4p1wqt9"
+@interface EtsyListing : NSObject
 
-@interface EtsyConstants : NSObject
+@property (nonatomic, strong) NSString *listingTitle;
+@property (nonatomic, strong) UIImage *listingImage;
 
 @end

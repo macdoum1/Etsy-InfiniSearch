@@ -11,7 +11,15 @@
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate>
 {
+    // Holds NSURLConnection data
     NSMutableData *responseData;
+    
+    // Holds search results
+    NSMutableArray *searchResultsArray;
+    
+    // Current keyword & current offset for loading more pages
+    NSString *currentKeyword;
+    int currentOffset;
 }
 
 // UICollectionView to display search results
@@ -19,5 +27,7 @@
 
 // UISearchBar for entering keywords
 @property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
+
+//- (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset;
 
 @end
