@@ -126,12 +126,12 @@
 				274EC60518D51A0A00791BEF /* AppDelegate.h */,
 				274EC60618D51A0A00791BEF /* AppDelegate.m */,
 				274EC63518D530E900791BEF /* View Controllers */,
+				274EC63618D635D100791BEF /* ResultCell.h */,
+				274EC63718D635D100791BEF /* ResultCell.m */,
 				274EC63418D530D800791BEF /* Data Model */,
 				274EC60818D51A0A00791BEF /* Main.storyboard */,
 				274EC60E18D51A0A00791BEF /* Images.xcassets */,
 				274EC5FD18D51A0A00791BEF /* Supporting Files */,
-				274EC63618D635D100791BEF /* ResultCell.h */,
-				274EC63718D635D100791BEF /* ResultCell.m */,
 			);
 			path = "Etsy InfiniSearch";
 			sourceTree = "<group>";

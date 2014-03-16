@@ -68,6 +68,9 @@
 
 - (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset
 {
+    // UTF8 String encoding
+    keyword = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     // Create NSString using API URL, API Key, and the contents of the search bar
     NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d",API_KEY,keyword,offset];
     
@@ -90,6 +93,7 @@
                                                 otherButtonTitles:nil];
         [message show];
     }
+    
 }
 
 // NSURLConnection didReceiveResponse Delegate Method
@@ -124,11 +128,24 @@
     // Parse response data to dictionary object using JSONSerialization
     NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
-    // Get results and store in NSArray
-    NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
-    
-    // Parse results into EtsyListing objects
-    [self parseSearchResults:allResults];
+    if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
+    {
+        // Get results and store in NSArray
+        NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
+        
+        // Parse results into EtsyListing objects
+        [self parseSearchResults:allResults];
+    }
+    else
+    {
+        // UIAlert for no results
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
+                                                          message:@""
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
 }
 
 // Parses search results into EtsyListing objects
@@ -152,6 +169,12 @@
     
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];
+    
+    if(currentOffset == 0)
+    {
+        // Reset UICollectionView scroll (in case of previous scrolling)
+        [searchResultsCollectionView scrollToItemAtIndexPath:0 atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }
     
     // Reset currentlyLoadingMore flag
     currentlyLoadingMore = false;
@@ -179,9 +202,9 @@
     EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
     
     // Set attributes of cell using the listing object
-    cell.backgroundColor = [UIColor greenColor];
     cell.listingImage.image = tempListing.listingImage;
     cell.listingLabel.text = tempListing.listingTitle;
+
     
     // Return cell
     return cell;
@@ -197,7 +220,7 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     // Returns the inset of the UICollection
-    return UIEdgeInsetsMake(5, 5, 0, 5);
+    return UIEdgeInsetsMake(5, 10, 0, 10);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -224,7 +247,6 @@
 - (void) loadMoreResults
 {
     currentlyLoadingMore = true;
-    NSLog(@"More Results should be loaded");
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
 }
