@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #define API_KEY         @"liwecjs0c3ssk6let4p1wqt9"
+#define NUM_RESULTS_PER_LOAD 25
 
 @interface EtsyConstants : NSObject
 

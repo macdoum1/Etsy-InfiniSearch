@@ -22,6 +22,10 @@
     // Current keyword & current offset for loading more pages
     NSString *currentKeyword;
     int currentOffset;
+    
+    // Current maximum scroll index
+    int maximumScrollIndex;
+    BOOL currentlyLoadingMore;
 }
 
 // UICollectionView to display search results

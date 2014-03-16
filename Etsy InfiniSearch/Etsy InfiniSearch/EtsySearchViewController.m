@@ -56,8 +56,14 @@
     // Ensure the offset is 0 with each new search
     currentOffset = 0;
     
+    // Ensure scrollIndex is 0 with each new search
+    maximumScrollIndex = 0;
+    
+    // Store current keyword for loading more results later
+    currentKeyword = searchBar.text;
+    
     // Load search results
-    [self loadSearchResultsWithKeyword:searchBar.text andOffset:0];
+    [self loadSearchResultsWithKeyword:currentKeyword andOffset:0];
 }
 
 - (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset
@@ -146,6 +152,9 @@
     
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];
+    
+    // Reset currentlyLoadingMore flag
+    currentlyLoadingMore = false;
 }
 
 // Determines how many cells should be shown
@@ -193,10 +202,31 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"Index Paths: %@",[searchResultsCollectionView indexPathsForVisibleItems]);
-    
+    // Get all indexPaths from UICollectionView that are currently visible
     NSArray *visibleIndexPaths = [searchResultsCollectionView indexPathsForVisibleItems];
+    for(NSIndexPath *indexPath in visibleIndexPaths)
+    {
+        // Determine the highest indexPath that is visible
+        if(indexPath.row > maximumScrollIndex)
+        {
+            maximumScrollIndex = indexPath.row;
+        }
+    }
     
+    // If the highest visible indexPath is the same as the last index of the searchResults array
+    // load more results
+    if(maximumScrollIndex == ([searchResultsArray count] - 1) && !currentlyLoadingMore)
+    {
+        [self loadMoreResults];
+    }
+}
+
+- (void) loadMoreResults
+{
+    currentlyLoadingMore = true;
+    NSLog(@"More Results should be loaded");
+    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+    [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
 }
 
 
