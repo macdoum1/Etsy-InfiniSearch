@@ -8,11 +8,12 @@ Appliation that utilizes Etsy's search API to create an infinite scrolling inter
 
 <b>TODO</b>
 -----
-1. Get search results from Etsy <b>Done</b>
-2. Parse search results into objects
-3. Populate UICollectionView cells with contents of objects
+1. Get search results from Etsy <b>Completed</b>
+2. Parse search results into objects <b>Completed</b>
+3. Populate UICollectionView cells with contents of objects <b>Completed</b>
 4. Ensure searching and loading does not effect performance
-5. Stylize UICollectionViewCells
+5. Stylize UICollectionViewCells <b>Completed</b>
+6. Add loading indicator when searching <b>Completed</b>
 6. Add loading indicator when loading more results
 
 <b>Wishlist</b>
