@@ -298,7 +298,7 @@
     }
     
     // If the highest visible indexPath is the same as the last index of the searchResults array
-    // load more results
+    // load more results & filters out extraneous loads
     if(maximumScrollIndex == ([searchResultsArray count] - 1) && !currentlyLoadingMore)
     {
         [self loadMoreResults];
@@ -308,8 +308,14 @@
 - (void) loadMoreResults
 {
     currentlyLoadingMore = true;
+    
+    // Update offset
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+    
+    // Load More results
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
+    
+    
 }
 
 
