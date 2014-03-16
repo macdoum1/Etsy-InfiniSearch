@@ -176,6 +176,8 @@
         // Get results and store in NSArray
         NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
         
+
+        
         // Parse results into EtsyListing objects
         [self parseSearchResults:allResults];
     }
@@ -203,7 +205,7 @@
         EtsyListing *currentListing = [[EtsyListing alloc]init];
         
         // Get title from dictionary
-        currentListing.listingTitle = [currentResult objectForKey:@"title"];
+        currentListing.listingTitle = [[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities];
         
         // Get image URL from dictionary & convert to UIImage
         NSDictionary *mainImageDict = [currentResult objectForKey:@"MainImage"];

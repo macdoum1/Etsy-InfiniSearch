@@ -24,6 +24,7 @@
 		274EC63018D51B3200791BEF /* EtsySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC62F18D51B3200791BEF /* EtsySearchViewController.m */; };
 		274EC63318D530D200791BEF /* EtsyListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63218D530D200791BEF /* EtsyListing.m */; };
 		274EC63818D635D100791BEF /* ResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63718D635D100791BEF /* ResultCell.m */; };
+		274EC63B18D6545200791BEF /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63A18D6545200791BEF /* NSString+HTML.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		274EC63218D530D200791BEF /* EtsyListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsyListing.m; sourceTree = "<group>"; };
 		274EC63618D635D100791BEF /* ResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultCell.h; sourceTree = "<group>"; };
 		274EC63718D635D100791BEF /* ResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultCell.m; sourceTree = "<group>"; };
+		274EC63918D6545200791BEF /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		274EC63A18D6545200791BEF /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,10 +124,8 @@
 		274EC5FC18D51A0A00791BEF /* Etsy InfiniSearch */ = {
 			isa = PBXGroup;
 			children = (
-				274EC62B18D51A4800791BEF /* EtsyConstants.h */,
-				274EC62C18D51A4800791BEF /* EtsyConstants.m */,
-				274EC60518D51A0A00791BEF /* AppDelegate.h */,
-				274EC60618D51A0A00791BEF /* AppDelegate.m */,
+				274EC63D18D6546A00791BEF /* App Delegate & Constants */,
+				274EC63C18D6545C00791BEF /* Helper Classes */,
 				274EC63518D530E900791BEF /* View Controllers */,
 				274EC63618D635D100791BEF /* ResultCell.h */,
 				274EC63718D635D100791BEF /* ResultCell.m */,
@@ -181,6 +182,26 @@
 				274EC62F18D51B3200791BEF /* EtsySearchViewController.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		274EC63C18D6545C00791BEF /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				274EC63918D6545200791BEF /* NSString+HTML.h */,
+				274EC63A18D6545200791BEF /* NSString+HTML.m */,
+			);
+			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
+		274EC63D18D6546A00791BEF /* App Delegate & Constants */ = {
+			isa = PBXGroup;
+			children = (
+				274EC62B18D51A4800791BEF /* EtsyConstants.h */,
+				274EC62C18D51A4800791BEF /* EtsyConstants.m */,
+				274EC60518D51A0A00791BEF /* AppDelegate.h */,
+				274EC60618D51A0A00791BEF /* AppDelegate.m */,
+			);
+			name = "App Delegate & Constants";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +304,7 @@
 				274EC63818D635D100791BEF /* ResultCell.m in Sources */,
 				274EC62D18D51A4800791BEF /* EtsyConstants.m in Sources */,
 				274EC60718D51A0A00791BEF /* AppDelegate.m in Sources */,
+				274EC63B18D6545200791BEF /* NSString+HTML.m in Sources */,
 				274EC63318D530D200791BEF /* EtsyListing.m in Sources */,
 				274EC60318D51A0A00791BEF /* main.m in Sources */,
 				274EC63018D51B3200791BEF /* EtsySearchViewController.m in Sources */,

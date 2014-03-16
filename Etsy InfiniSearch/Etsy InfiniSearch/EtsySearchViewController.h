@@ -10,6 +10,7 @@
 #import "EtsyConstants.h"
 #import "EtsyListing.h"
 #import "ResultCell.h"
+#import "NSString+HTML.h"
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate>
 {
