@@ -181,6 +181,9 @@
     }
     else
     {
+        // Switch loading indicator to search icon
+        [self toggleSearchIndicator:1];
+        
         // UIAlert for no results
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
                                                           message:@""
@@ -249,8 +252,18 @@
     
     // Set attributes of cell using the listing object
     cell.listingImage.image = tempListing.listingImage;
+    cell.listingImage.layer.masksToBounds = YES;
     cell.listingLabel.text = tempListing.listingTitle;
-
+    
+    cell.layer.masksToBounds = NO;
+    cell.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.contentsScale = [UIScreen mainScreen].scale;
+    cell.layer.shadowOpacity = 0.75f;
+    cell.layer.shadowRadius = 4.0f;
+    cell.layer.shadowOffset = CGSizeZero;
+    cell.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.bounds].CGPath;
+    cell.layer.shouldRasterize = YES;
     
     // Return cell
     return cell;

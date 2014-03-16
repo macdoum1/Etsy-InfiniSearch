@@ -38,6 +38,4 @@
 // UISearchBar for entering keywords
 @property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
 
-//- (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset;
-
 @end
