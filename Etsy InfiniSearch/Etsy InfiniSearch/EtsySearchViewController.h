@@ -11,6 +11,7 @@
 #import "EtsyListing.h"
 #import "ResultCell.h"
 #import "NSString+HTML.h"
+#import "LoadMoreView.h"
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate>
 {
@@ -25,7 +26,7 @@
     int currentOffset;
     
     // Current maximum scroll index
-    int maximumScrollIndex;
+    NSInteger maximumScrollIndex;
     BOOL currentlyLoadingMore;
     
     // Views need for adding search/loading indicator
@@ -38,5 +39,8 @@
 
 // UISearchBar for entering keywords
 @property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
+
+// UIView and UIActivityIndicatorView for loading more results
+@property (nonatomic, strong) IBOutlet LoadMoreView *loadMoreView;
 
 @end

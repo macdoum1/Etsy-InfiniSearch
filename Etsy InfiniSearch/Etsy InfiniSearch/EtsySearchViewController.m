@@ -14,7 +14,7 @@
 
 @implementation EtsySearchViewController
 
-@synthesize searchResultsCollectionView,etsySearchBar;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -229,6 +229,9 @@
     
     // Reset currentlyLoadingMore flag
     currentlyLoadingMore = false;
+    
+    // Reset LoadMoreView
+    [loadMoreView slideDown];
 }
 
 // Determines how many cells should be shown
@@ -258,7 +261,7 @@
     cell.listingLabel.text = tempListing.listingTitle;
     
     cell.layer.masksToBounds = NO;
-    cell.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.layer.borderColor = [[UIColor whiteColor] CGColor];
     cell.layer.borderWidth = 1.0f;
     cell.layer.contentsScale = [UIScreen mainScreen].scale;
     cell.layer.shadowOpacity = 0.75f;
@@ -309,12 +312,13 @@
 {
     currentlyLoadingMore = true;
     
+    [loadMoreView slideUp];
+    
     // Update offset
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     
     // Load More results
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
-    
     
 }
 

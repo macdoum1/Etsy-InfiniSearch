@@ -25,6 +25,7 @@
 		274EC63318D530D200791BEF /* EtsyListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63218D530D200791BEF /* EtsyListing.m */; };
 		274EC63818D635D100791BEF /* ResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63718D635D100791BEF /* ResultCell.m */; };
 		274EC63B18D6545200791BEF /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63A18D6545200791BEF /* NSString+HTML.m */; };
+		274EC64018D65D5600791BEF /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63F18D65D5600791BEF /* LoadMoreView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		274EC63718D635D100791BEF /* ResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultCell.m; sourceTree = "<group>"; };
 		274EC63918D6545200791BEF /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		274EC63A18D6545200791BEF /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		274EC63E18D65D5600791BEF /* LoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreView.h; sourceTree = "<group>"; };
+		274EC63F18D65D5600791BEF /* LoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,7 @@
 			children = (
 				274EC63D18D6546A00791BEF /* App Delegate & Constants */,
 				274EC63C18D6545C00791BEF /* Helper Classes */,
+				274EC64118D65D6100791BEF /* Views */,
 				274EC63518D530E900791BEF /* View Controllers */,
 				274EC63618D635D100791BEF /* ResultCell.h */,
 				274EC63718D635D100791BEF /* ResultCell.m */,
@@ -204,6 +208,15 @@
 			name = "App Delegate & Constants";
 			sourceTree = "<group>";
 		};
+		274EC64118D65D6100791BEF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				274EC63E18D65D5600791BEF /* LoadMoreView.h */,
+				274EC63F18D65D5600791BEF /* LoadMoreView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -251,6 +264,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Michael MacDougall";
 				TargetAttributes = {
+					274EC5F218D51A0A00791BEF = {
+						DevelopmentTeam = ED2BHJ5NH8;
+					};
 					274EC61318D51A0A00791BEF = {
 						TestTargetID = 274EC5F218D51A0A00791BEF;
 					};
@@ -308,6 +324,7 @@
 				274EC63318D530D200791BEF /* EtsyListing.m in Sources */,
 				274EC60318D51A0A00791BEF /* main.m in Sources */,
 				274EC63018D51B3200791BEF /* EtsySearchViewController.m in Sources */,
+				274EC64018D65D5600791BEF /* LoadMoreView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,10 +449,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Etsy InfiniSearch/Etsy InfiniSearch-Prefix.pch";
 				INFOPLIST_FILE = "Etsy InfiniSearch/Etsy InfiniSearch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -445,10 +465,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Etsy InfiniSearch/Etsy InfiniSearch-Prefix.pch";
 				INFOPLIST_FILE = "Etsy InfiniSearch/Etsy InfiniSearch-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
