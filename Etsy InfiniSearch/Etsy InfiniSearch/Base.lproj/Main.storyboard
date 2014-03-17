@@ -131,7 +131,7 @@
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="f4e-wG-g3F"/>
                                             <barButtonItem title="Done" id="bOi-xx-G9T">
                                                 <connections>
-                                                    <action selector="doneSorting:" destination="vXZ-lx-hvc" id="VUa-iI-ej7"/>
+                                                    <action selector="doneSorting:" destination="vXZ-lx-hvc" id="scQ-Jm-d4K"/>
                                                 </connections>
                                             </barButtonItem>
                                         </items>

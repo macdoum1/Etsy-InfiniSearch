@@ -44,12 +44,18 @@
     currentOffset = 0;
     
     // Set up sorting UIPicker and sort Methods
-    sortMethods = [[NSArray alloc]initWithObjects:@"Most Recent",@"Highest Price",@"Lowest Price",@"Score", nil];
+    sortMethods = [[NSArray alloc]initWithObjects:@"Most Recent",@"Highest Price",@"Lowest Price",@"Highest Score", nil];
     [sortPicker setDelegate:self];
     [sortPicker setDataSource:self];
     sortPicker.showsSelectionIndicator = TRUE;
     [sortPicker selectRow:0 inComponent:0 animated:YES];
     
+}
+
+- (void) closeKeyboard
+{
+    // Close keyboard
+    [etsySearchBar resignFirstResponder];
 }
 
 //********Sorting/UIPicker Delegate Methods********
@@ -97,8 +103,15 @@
     // Store current keyword for loading more results later
     currentKeyword = searchBar.text;
     
+    // Perform new search
     [self performNewSearch];
     
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    // Hide UIPicker when keyboard opens
+    [sortPickerView setHidden:YES];
 }
 
 - (void)performNewSearch
@@ -396,8 +409,20 @@
 
 - (IBAction)sortBy:(id)sender
 {
+    // Close keyboard 
+    [self closeKeyboard];
+    
     // Show UIPickerView when SortBy method button is pressed
     [sortPickerView setHidden:NO];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"here");
+    for (UIView * txt in self.view.subviews){
+        if ([txt isKindOfClass:[UISearchBar class]] && [txt isFirstResponder]) {
+            [txt resignFirstResponder];
+        }
+    }
 }
 
 
