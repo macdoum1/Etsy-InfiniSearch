@@ -15,8 +15,8 @@ Appliation that utilizes Etsy's search API to create an infinite scrolling inter
 
 <b>Screenshots</b>
 -----
-<img src="http://i59.tinypic.com/svnqkk.jpg"/>
-<img src="http://i57.tinypic.com/2u6fl8p.png"/>
+<img src="http://i59.tinypic.com/svnqkk.jpg" height="400" />
+<img src="http://i57.tinypic.com/2u6fl8p.png" height="400"/>
 
 <b>TODO</b>
 -----
