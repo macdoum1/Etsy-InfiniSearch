@@ -52,6 +52,13 @@
     
 }
 
+//***Lock Orientation***
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+//**********************
+
 //********Sorting/UIPicker Delegate Methods********
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
 {

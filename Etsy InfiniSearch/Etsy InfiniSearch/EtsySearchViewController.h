@@ -38,6 +38,8 @@
     
     // Current sort method
     NSInteger currentSortMethod;
+    
+    
 }
 
 // UICollectionView to display search results
