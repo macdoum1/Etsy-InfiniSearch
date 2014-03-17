@@ -48,7 +48,6 @@
     
     // Initialize indicator
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    
 }
 
 //***Lock Orientation***
@@ -69,7 +68,6 @@
     
     // Perform new search
     [self performNewSearch];
-    
 }
 
 - (void)performNewSearch
@@ -87,46 +85,31 @@
     [self loadSearchResultsWithOffset:0];
     
     // Switch search icon to loading indicator
-    [self toggleSearchIndicator:0];
+    [self toggleSearchIndicator:1];
     
     // Reload UICollectionView
     [searchResultsCollectionView reloadData];
 }
 
-- (void)toggleSearchIndicator:(BOOL)flag
+- (void)toggleSearchIndicator:(int)flag
 {
-    // Get UITextField from UISearchBar's subviews
-    UITextField *searchField = nil;
-    for (UIView *subview in [[etsySearchBar.subviews objectAtIndex:0] subviews])
+    if(flag)
     {
-        if ([subview isKindOfClass:[UITextField class]])
+        if([sortBar isHidden])
         {
-            searchField = (UITextField *)subview;
-            break;
-        }
-    }
-    // Ensure UITextField was extracted from UISearchBar
-    if(searchField)
-    {
-        if(flag == 0)
-        {
-            // Store search icon for swapping back later
-            searchIcon = searchField.leftView;
-            
-            // Replace search icon with indicator
-            searchField.leftView = spinner;
-            
-            // Start animating indicator
-            [spinner startAnimating];
+            [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 15, 0, 0)];
         }
         else
         {
-            // Swap indicator for search icon
-            searchField.leftView = searchIcon;
-            
-            // Stop animating indicator
-            [spinner stopAnimating];
+            [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 50, 0, 0)];
         }
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
+    }
+    else
+    {
+        [spinner removeFromSuperview];
+        [spinner stopAnimating];
     }
 }
 
@@ -224,18 +207,22 @@
     else
     {
         // Switch loading indicator to search icon
-        [self toggleSearchIndicator:1];
-        
+        [self toggleSearchIndicator:0];
+
         // Disable sort bar if no results are found
         [sortBar setHidden:YES];
         
-        // UIAlert for no results
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
-                                                          message:@""
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
+        // Do not show no results found if no more listings exist
+        if(!currentlyLoadingMore)
+        {
+            // UIAlert for no results
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
+                                                              message:@""
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            [message show];
+        }
     }
 }
 
@@ -268,8 +255,8 @@
     }
     
     // Switch loading indicator to search icon
-    [self toggleSearchIndicator:1];
-    
+    [self toggleSearchIndicator:0];
+
     // Show sorting bar
     [sortBar setHidden:NO];
     
@@ -284,8 +271,16 @@
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
     // Ensures that number of listings to be shown is divisible by the column count
-    // to prevent asymmetry
-    return ([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS));
+    // to prevent asymmetry. However if 
+    
+    if([searchResultsArray count] > NUM_RESULTS_PER_LOAD - 1)
+    {
+        return ([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS));
+    }
+    else
+    {
+        return [searchResultsArray count];
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
@@ -361,16 +356,13 @@
     // Update offset
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     
-    // Load More results
+    // Load more results
     [self loadSearchResultsWithOffset:currentOffset];
     
 }
 
 - (IBAction)sortBy:(id)sender
 {
-    // Close keyboard 
-    [etsySearchBar resignFirstResponder];
-    
     // Show UIActionSheet when SortBy method button is pressed
     [self showSortByActionSheet];
 }
@@ -396,22 +388,17 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(currentKeyword != NULL)
+    // Ensure buttonIndex is in range, not cancel, and not the same as the current sort method
+    if(currentKeyword != NULL && buttonIndex < [sortMethods count] && !(currentSortMethod == buttonIndex))
     {
-        // Iterate through sort methods
-        for(NSString *s in sortMethods)
-        {
-            if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:s])
-            {
-                // Set current sort method
-                currentSortMethod = buttonIndex;
-                
-                // Set button text to match current sort method
-                [sortButton setTitle:s forState:UIControlStateNormal];
-                
-                [self performNewSearch];
-            }
-        }
+        // Set current sort method
+        currentSortMethod = buttonIndex;
+        
+        // Set button text to match current sort method
+        [sortButton setTitle:[sortMethods objectAtIndex:buttonIndex] forState:UIControlStateNormal];
+        
+        // Perform new search
+        [self performNewSearch];
     }
 }
 
