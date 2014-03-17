@@ -52,12 +52,6 @@
     
 }
 
-- (void) closeKeyboard
-{
-    // Close keyboard
-    [etsySearchBar resignFirstResponder];
-}
-
 //********Sorting/UIPicker Delegate Methods********
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
 {
@@ -92,7 +86,6 @@
     [sortPickerView setHidden:YES];
 }
 //*************************************************
-
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -410,19 +403,10 @@
 - (IBAction)sortBy:(id)sender
 {
     // Close keyboard 
-    [self closeKeyboard];
+    [etsySearchBar resignFirstResponder];
     
     // Show UIPickerView when SortBy method button is pressed
     [sortPickerView setHidden:NO];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"here");
-    for (UIView * txt in self.view.subviews){
-        if ([txt isKindOfClass:[UISearchBar class]] && [txt isFirstResponder]) {
-            [txt resignFirstResponder];
-        }
-    }
 }
 
 
