@@ -95,19 +95,24 @@
 {
     if(flag)
     {
+        // If sortBar is hidden, place spinner below searchBar
         if([sortBar isHidden])
         {
             [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 15, 0, 0)];
         }
+        // If sortBar is not hidden place spinner below sortBar
         else
         {
             [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 50, 0, 0)];
         }
+        
+        // Add spinner to view & start animating
         [self.view addSubview:spinner];
         [spinner startAnimating];
     }
     else
     {
+        // Remove spinner from view & stop animating
         [spinner removeFromSuperview];
         [spinner stopAnimating];
     }
@@ -372,16 +377,17 @@
     // Initialize actionSheet
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By:" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
-    //Add sort methods to action sheet from array
+    // Add sort methods to action sheet from array
     for(NSString *s in sortMethods)
     {
         [actionSheet addButtonWithTitle:s];
     }
     
-    //Add cancel button to action sheet
+    // Add cancel button to action sheet (to ensure its at the end of the actionsheet)
     [actionSheet addButtonWithTitle:@"Cancel"];
     [actionSheet setCancelButtonIndex:[sortMethods count]];
     
+    // Show actionsheet
     [actionSheet showInView:self.view];
     
 }
