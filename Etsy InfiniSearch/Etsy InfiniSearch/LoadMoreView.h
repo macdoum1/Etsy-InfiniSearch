@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *spinner;
 
+// Slide view upwards to show
 - (void)slideUp;
+
+// Slide view downwards to hide
 - (void)slideDown;
 @end

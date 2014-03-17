@@ -52,35 +52,41 @@
     
 }
 
+//********Sorting/UIPicker Delegate Methods********
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
 {
+    // Only need 1 component
     return 1;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
 {
+    // Returns number of sort methods
     return [sortMethods count];
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
+    // Returns specific sort method
     return [sortMethods objectAtIndex:row];
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if(currentKeyword != NULL)
     {
+        //
         NSString *selected = [sortMethods objectAtIndex:row];
         currentSortMethod = row;
         [sortButton setTitle:selected forState:UIControlStateNormal];
         [self performNewSearch];
     }
 }
-
 - (IBAction)doneSorting:(id)sender
 {
     [sortPickerView setHidden:YES];
 }
+//*************************************************
+
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -235,12 +241,11 @@
     // Parse response data to dictionary object using JSONSerialization
     NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
+    // Ensure more than zero results
     if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
     {
         // Get results and store in NSArray
         NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
-        
-
         
         // Parse results into EtsyListing objects
         [self parseSearchResults:allResults];
@@ -347,13 +352,6 @@
     return cell;
 }
 
-/*- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-
-{
-    // Returns the size of a particular cell
-    return CGSizeMake(50, 135); //PLACEHOLDER
-}*/
-
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     // Returns the inset of the UICollection
@@ -385,6 +383,7 @@
 {
     currentlyLoadingMore = true;
     
+    // Show LoadMoreView as loading indicator
     [loadMoreView slideUp];
     
     // Update offset
@@ -397,6 +396,7 @@
 
 - (IBAction)sortBy:(id)sender
 {
+    // Show UIPickerView when SortBy method button is pressed
     [sortPickerView setHidden:NO];
 }
 
