@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="B1Y-t6-5Ig">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="464"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="2" id="uH5-qk-Luf">
@@ -77,25 +77,84 @@
                                     <outlet property="spinner" destination="H8A-Dc-Ife" id="Tnd-OW-nGQ"/>
                                 </connections>
                             </view>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="8R4-4b-Zl3">
+                            <searchBar contentMode="redraw" placeholder="What are you looking for?" translatesAutoresizingMaskIntoConstraints="NO" id="8R4-4b-Zl3">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWf-jG-1n2">
+                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sort By:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uap-Aa-jnf">
+                                        <rect key="frame" x="85" y="9" width="62" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8l-PF-pOa">
+                                        <rect key="frame" x="155" y="5" width="114" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Most Recent">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sortBy:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="a1E-7Q-a5v"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrm-i8-fHP">
+                                        <rect key="frame" x="177" y="9" width="0.0" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.79607843140000001" green="0.79607843140000001" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="70c-i8-puU"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ayw-hc-PJd">
+                                <rect key="frame" x="0.0" y="386" width="320" height="182"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K9Q-eA-swP">
+                                        <rect key="frame" x="0.0" y="20" width="320" height="162"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    </pickerView>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-i1-LMi">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <items>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="f4e-wG-g3F"/>
+                                            <barButtonItem title="Done" id="bOi-xx-G9T">
+                                                <connections>
+                                                    <action selector="doneSorting:" destination="vXZ-lx-hvc" id="VUa-iI-ej7"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="UWf-jG-1n2" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0Sr-rq-mi3"/>
                             <constraint firstItem="8R4-4b-Zl3" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="0mr-Sf-IYE"/>
                             <constraint firstAttribute="bottom" secondItem="q7T-Xa-xqp" secondAttribute="bottom" constant="-40" id="4Le-0M-oyg"/>
                             <constraint firstItem="q7T-Xa-xqp" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5PG-HC-xtl"/>
                             <constraint firstItem="q7T-Xa-xqp" firstAttribute="top" secondItem="2fi-mo-0CV" secondAttribute="bottom" id="7zw-A7-SCM"/>
                             <constraint firstItem="8R4-4b-Zl3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="AO0-Ve-REe"/>
-                            <constraint firstItem="B1Y-t6-5Ig" firstAttribute="top" secondItem="8R4-4b-Zl3" secondAttribute="bottom" id="BHO-Iq-0vn"/>
                             <constraint firstAttribute="trailing" secondItem="8R4-4b-Zl3" secondAttribute="trailing" id="MA1-o1-bsv"/>
                             <constraint firstItem="B1Y-t6-5Ig" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="MXL-a5-Qcf"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="B1Y-t6-5Ig" secondAttribute="bottom" id="NeT-Tw-7Sf"/>
                             <constraint firstAttribute="trailing" secondItem="q7T-Xa-xqp" secondAttribute="trailing" id="c3A-hP-CL3"/>
+                            <constraint firstItem="B1Y-t6-5Ig" firstAttribute="top" secondItem="UWf-jG-1n2" secondAttribute="bottom" id="e0H-Lz-sMM"/>
+                            <constraint firstAttribute="trailing" secondItem="UWf-jG-1n2" secondAttribute="trailing" id="w4U-Ep-6Zr"/>
+                            <constraint firstItem="UWf-jG-1n2" firstAttribute="top" secondItem="8R4-4b-Zl3" secondAttribute="bottom" id="xD5-5t-LHw"/>
                             <constraint firstAttribute="trailing" secondItem="B1Y-t6-5Ig" secondAttribute="trailing" id="yuE-S9-z6x"/>
                         </constraints>
                     </view>
@@ -103,6 +162,10 @@
                         <outlet property="etsySearchBar" destination="8R4-4b-Zl3" id="y35-rn-Wix"/>
                         <outlet property="loadMoreView" destination="q7T-Xa-xqp" id="LHs-2g-8Qz"/>
                         <outlet property="searchResultsCollectionView" destination="B1Y-t6-5Ig" id="rj6-CI-G2x"/>
+                        <outlet property="sortBar" destination="UWf-jG-1n2" id="LJ7-oF-wvQ"/>
+                        <outlet property="sortButton" destination="b8l-PF-pOa" id="kN6-Oy-HYE"/>
+                        <outlet property="sortPicker" destination="K9Q-eA-swP" id="yEb-jw-AQ9"/>
+                        <outlet property="sortPickerView" destination="Ayw-hc-PJd" id="G29-MV-rLi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

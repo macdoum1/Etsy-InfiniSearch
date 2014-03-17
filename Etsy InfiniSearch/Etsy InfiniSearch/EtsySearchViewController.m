@@ -14,7 +14,7 @@
 
 @implementation EtsySearchViewController
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortPicker,sortPickerView,sortBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,24 +43,68 @@
     // Set current offset to zero
     currentOffset = 0;
     
+    // Set up sorting UIPicker and sort Methods
+    sortMethods = [[NSArray alloc]initWithObjects:@"Most Recent",@"Highest Price",@"Lowest Price",@"Score", nil];
+    [sortPicker setDelegate:self];
+    [sortPicker setDataSource:self];
+    sortPicker.showsSelectionIndicator = TRUE;
+    [sortPicker selectRow:0 inComponent:0 animated:YES];
+    
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
+{
+    return [sortMethods count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [sortMethods objectAtIndex:row];
+}
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if(currentKeyword != NULL)
+    {
+        NSString *selected = [sortMethods objectAtIndex:row];
+        currentSortMethod = row;
+        [sortButton setTitle:selected forState:UIControlStateNormal];
+        [self performNewSearch];
+    }
+}
+
+- (IBAction)doneSorting:(id)sender
+{
+    [sortPickerView setHidden:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+
+    // Dismiss keyboard once search is pressed
+    [searchBar resignFirstResponder];
+    
+    // Store current keyword for loading more results later
+    currentKeyword = searchBar.text;
+    
+    [self performNewSearch];
+    
+}
+
+- (void)performNewSearch
+{
     // Initialize searchResultsArray
     searchResultsArray = [[NSMutableArray alloc]init];
     
-    // Dismiss keyboard once search is pressed
-    [searchBar resignFirstResponder];
-
     // Ensure the offset is 0 with each new search
     currentOffset = 0;
     
     // Ensure scrollIndex is 0 with each new search
     maximumScrollIndex = 0;
-    
-    // Store current keyword for loading more results later
-    currentKeyword = searchBar.text;
     
     // Load search results
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:0];
@@ -68,6 +112,7 @@
     // Switch search icon to loading indicator
     [self toggleSearchIndicator:0];
     
+    [searchResultsCollectionView reloadData];
 }
 
 - (void)toggleSearchIndicator:(BOOL)flag
@@ -113,9 +158,29 @@
 {
     // UTF8 String encoding
     keyword = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *sortPostfix = @"";
+    switch (currentSortMethod)
+    {
+        case 0:
+            sortPostfix = @"";
+            break;
+        case 1:
+            sortPostfix = @"&sort_on=price&sort_order=down";
+            break;
+        case 2:
+            sortPostfix = @"&sort_on=price&sort_order=up";
+            break;
+        case 3:
+            sortPostfix = @"&sort_on=score&sort_order=down";
+            break;
+        default:
+            sortPostfix = @"";
+            break;
+    }
 
     // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d",API_KEY,keyword,offset];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@",API_KEY,keyword,offset,sortPostfix];
     
     // Create NSURL object from the URL String
     NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
@@ -136,7 +201,6 @@
                                                 otherButtonTitles:nil];
         [message show];
     }
-    
 }
 
 // NSURLConnection didReceiveResponse Delegate Method
@@ -186,6 +250,9 @@
         // Switch loading indicator to search icon
         [self toggleSearchIndicator:1];
         
+        // Disable sort bar if no results are found
+        [sortBar setHidden:YES];
+        
         // UIAlert for no results
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
                                                           message:@""
@@ -207,7 +274,7 @@
         // Get title from dictionary
         currentListing.listingTitle = [[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities];
         
-        // Get image URL from dictionary & convert to UIImage
+        // Get image URL from dictionary
         NSDictionary *mainImageDict = [currentResult objectForKey:@"MainImage"];
         currentListing.listingImageURL = [mainImageDict objectForKey:@"url_170x135"];
         
@@ -226,6 +293,9 @@
     
     // Switch loading indicator to search icon
     [self toggleSearchIndicator:1];
+    
+    // Show sorting bar
+    [sortBar setHidden:NO];
     
     // Reset currentlyLoadingMore flag
     currentlyLoadingMore = false;
@@ -257,15 +327,18 @@
     
     // Set attributes of cell using the listing object
     cell.listingImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempListing.listingImageURL]]];
-    cell.listingImage.layer.masksToBounds = YES;
     cell.listingLabel.text = tempListing.listingTitle;
     
+    // Ensure image does not exceed edges of mask (due to cell needing maskToBounds off for drop shadow)
+    cell.listingImage.layer.masksToBounds = YES;
+
+    // Set drop shadow of UICollectionViewCell
     cell.layer.masksToBounds = NO;
     cell.layer.borderColor = [[UIColor whiteColor] CGColor];
     cell.layer.borderWidth = 1.0f;
     cell.layer.contentsScale = [UIScreen mainScreen].scale;
-    cell.layer.shadowOpacity = 0.75f;
     cell.layer.shadowRadius = 4.0f;
+    cell.layer.shadowOpacity = 0.75f;
     cell.layer.shadowOffset = CGSizeZero;
     cell.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.bounds].CGPath;
     cell.layer.shouldRasterize = YES;
@@ -320,6 +393,11 @@
     // Load More results
     [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
     
+}
+
+- (IBAction)sortBy:(id)sender
+{
+    [sortPickerView setHidden:NO];
 }
 
 

@@ -13,7 +13,7 @@
 #import "NSString+HTML.h"
 #import "LoadMoreView.h"
 
-@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate>
+@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {
     // Holds NSURLConnection data
     NSMutableData *responseData;
@@ -32,6 +32,12 @@
     // Views need for adding search/loading indicator
     UIView *searchIcon;
     UIActivityIndicatorView *spinner;
+    
+    // NSArray of sorting methods
+    NSArray *sortMethods;
+    
+    // Current sort method
+    NSInteger currentSortMethod;
 }
 
 // UICollectionView to display search results
@@ -40,7 +46,23 @@
 // UISearchBar for entering keywords
 @property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
 
-// UIView and UIActivityIndicatorView for loading more results
+// Custom UIView and UIActivityIndicatorView for loading more results
 @property (nonatomic, strong) IBOutlet LoadMoreView *loadMoreView;
+
+// UIView for sortbar
+@property (nonatomic, strong) IBOutlet UIView *sortBar;
+
+// UIButton for sorting
+@property (nonatomic, strong) IBOutlet UIButton *sortButton;
+
+// UIPickerView for sorting
+@property (nonatomic, strong) IBOutlet UIPickerView *sortPicker;
+
+// UIView for hiding/showing sortPicker/toolbar
+@property (nonatomic, strong) IBOutlet UIView *sortPickerView;
+
+
+- (IBAction)sortBy:(id)sender;
+- (IBAction)doneSorting:(id)sender;
 
 @end

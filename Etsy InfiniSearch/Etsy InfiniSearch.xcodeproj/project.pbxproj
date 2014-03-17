@@ -535,6 +535,7 @@
 				274EC62718D51A0A00791BEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		274EC62818D51A0A00791BEF /* Build configuration list for PBXNativeTarget "Etsy InfiniSearchTests" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +544,7 @@
 				274EC62A18D51A0A00791BEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
