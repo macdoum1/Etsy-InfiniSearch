@@ -7,6 +7,7 @@ Infinite Scrolling Search application for iOS
 Appliation that utilizes Etsy's search API to create an infinite scrolling interface.
 
 <b>Features</b>
+-----
 1. Allows user to search for items using Etsy Search API
 2. Displays lists in a UICollectionView with custom UICollectionViewCells 
 3. UICollectionView is infinitely scrolling with a loading indicator when loading more listings
