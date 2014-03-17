@@ -74,7 +74,7 @@
 {
     if(currentKeyword != NULL)
     {
-        //
+        // Get selected sort method from array and perform new search
         NSString *selected = [sortMethods objectAtIndex:row];
         currentSortMethod = row;
         [sortButton setTitle:selected forState:UIControlStateNormal];
@@ -119,7 +119,7 @@
     maximumScrollIndex = 0;
     
     // Load search results
-    [self loadSearchResultsWithKeyword:currentKeyword andOffset:0];
+    [self loadSearchResultsWithOffset:0];
     
     // Switch search icon to loading indicator
     [self toggleSearchIndicator:0];
@@ -129,7 +129,7 @@
 
 - (void)toggleSearchIndicator:(BOOL)flag
 {
-    // Get UITextField from UISearchBars subviews
+    // Get UITextField from UISearchBar's subviews
     UITextField *searchField = nil;
     for (UIView *subview in [[etsySearchBar.subviews objectAtIndex:0] subviews])
     {
@@ -139,6 +139,7 @@
             break;
         }
     }
+    // Ensure UITextField was extracted from UISearchBar
     if(searchField)
     {
         if(flag == 0)
@@ -166,11 +167,12 @@
     }
 }
 
-- (void)loadSearchResultsWithKeyword:(NSString *)keyword andOffset:(int)offset
+- (void)loadSearchResultsWithOffset:(int)offset
 {
     // UTF8 String encoding
-    keyword = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyword = [currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    // Select the correct URL postfix for the selected sorting method
     NSString *sortPostfix = @"";
     switch (currentSortMethod)
     {
@@ -396,7 +398,7 @@
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     
     // Load More results
-    [self loadSearchResultsWithKeyword:currentKeyword andOffset:currentOffset];
+    [self loadSearchResultsWithOffset:currentOffset];
     
 }
 
