@@ -14,7 +14,7 @@
 
 @implementation EtsySearchViewController
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortPicker,sortPickerView,sortBar;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,12 +43,11 @@
     // Set current offset to zero
     currentOffset = 0;
     
-    // Set up sorting UIPicker and sort Methods
+    // Set up sort methods
     sortMethods = [[NSArray alloc]initWithObjects:@"Most Recent",@"Highest Price",@"Lowest Price",@"Highest Score", nil];
-    [sortPicker setDelegate:self];
-    [sortPicker setDataSource:self];
-    sortPicker.showsSelectionIndicator = TRUE;
-    [sortPicker selectRow:0 inComponent:0 animated:YES];
+    
+    // Initialize indicator
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
 }
 
@@ -58,41 +57,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 //**********************
-
-//********Sorting/UIPicker Delegate Methods********
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
-{
-    // Only need 1 component
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
-{
-    // Returns number of sort methods
-    return [sortMethods count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    // Returns specific sort method
-    return [sortMethods objectAtIndex:row];
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if(currentKeyword != NULL)
-    {
-        // Get selected sort method from array and perform new search
-        NSString *selected = [sortMethods objectAtIndex:row];
-        currentSortMethod = row;
-        [sortButton setTitle:selected forState:UIControlStateNormal];
-        [self performNewSearch];
-    }
-}
-- (IBAction)doneSorting:(id)sender
-{
-    [sortPickerView setHidden:YES];
-}
-//*************************************************
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -106,12 +70,6 @@
     // Perform new search
     [self performNewSearch];
     
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    // Hide UIPicker when keyboard opens
-    [sortPickerView setHidden:YES];
 }
 
 - (void)performNewSearch
@@ -131,6 +89,7 @@
     // Switch search icon to loading indicator
     [self toggleSearchIndicator:0];
     
+    // Reload UICollectionView
     [searchResultsCollectionView reloadData];
 }
 
@@ -151,9 +110,6 @@
     {
         if(flag == 0)
         {
-            // Initialize indicator
-            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            
             // Store search icon for swapping back later
             searchIcon = searchField.leftView;
             
@@ -327,8 +283,9 @@
 // Determines how many cells should be shown
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
-    // Return size of array/number of search results
-    return [searchResultsArray count];
+    // Ensures that number of listings to be shown is divisible by the column count
+    // to prevent asymmetry
+    return ([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS));
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
@@ -388,7 +345,7 @@
     
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
-    if(maximumScrollIndex == ([searchResultsArray count] - 1) && !currentlyLoadingMore)
+    if(maximumScrollIndex == (([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS) - 1)) && !currentlyLoadingMore)
     {
         [self loadMoreResults];
     }
@@ -414,8 +371,48 @@
     // Close keyboard 
     [etsySearchBar resignFirstResponder];
     
-    // Show UIPickerView when SortBy method button is pressed
-    [sortPickerView setHidden:NO];
+    // Show UIActionSheet when SortBy method button is pressed
+    [self showSortByActionSheet];
+}
+
+-(void)showSortByActionSheet
+{
+    // Initialize actionSheet
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By:" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    //Add sort methods to action sheet from array
+    for(NSString *s in sortMethods)
+    {
+        [actionSheet addButtonWithTitle:s];
+    }
+    
+    //Add cancel button to action sheet
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[sortMethods count]];
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(currentKeyword != NULL)
+    {
+        // Iterate through sort methods
+        for(NSString *s in sortMethods)
+        {
+            if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:s])
+            {
+                // Set current sort method
+                currentSortMethod = buttonIndex;
+                
+                // Set button text to match current sort method
+                [sortButton setTitle:s forState:UIControlStateNormal];
+                
+                [self performNewSearch];
+            }
+        }
+    }
 }
 
 
