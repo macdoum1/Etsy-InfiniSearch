@@ -349,7 +349,11 @@
         }
     }
     
-    
+    if(maximumScrollIndex == currentOffset)
+    {
+        // Clear cache to prevent memory leaks
+        [[SDImageCache sharedImageCache] clearMemory];
+    }
     
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
