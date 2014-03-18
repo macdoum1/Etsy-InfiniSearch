@@ -12,6 +12,9 @@
 #import "ResultCell.h"
 #import "NSString+HTML.h"
 #import "LoadMoreView.h"
+#import "UIImageView+WebCache.h"
+
+
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate>
 {
@@ -38,7 +41,6 @@
     
     // Current sort method
     NSInteger currentSortMethod;
-    
 }
 
 // UICollectionView to display search results

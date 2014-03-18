@@ -48,6 +48,7 @@
     
     // Initialize indicator
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
 }
 
 //***Lock Orientation***
@@ -250,6 +251,8 @@
         [searchResultsArray addObject:currentListing];
     }
     
+   
+    
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];
     
@@ -302,9 +305,12 @@
     // Get correct listing from searchResultsArray
     EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
     
-    // Set attributes of cell using the listing object
-    cell.listingImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tempListing.listingImageURL]]];
+    // Set Image with URL using SDWebImage (supports cacheing and loading asynchronously)
+    [cell.listingImage setImageWithURL:[NSURL URLWithString:tempListing.listingImageURL]];
+
+    // Set cell listing title from Etsy listing object
     cell.listingLabel.text = tempListing.listingTitle;
+
     
     // Ensure image does not exceed edges of mask (due to cell needing maskToBounds off for drop shadow)
     cell.listingImage.layer.masksToBounds = YES;
@@ -343,6 +349,8 @@
         }
     }
     
+    
+    
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
     if(maximumScrollIndex == (([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS) - 1)) && !currentlyLoadingMore)
@@ -360,7 +368,6 @@
     
     // Update offset
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
-    
     // Load more results
     [self loadSearchResultsWithOffset:currentOffset];
     
