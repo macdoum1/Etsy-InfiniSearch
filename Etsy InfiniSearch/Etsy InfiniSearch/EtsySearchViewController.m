@@ -78,13 +78,6 @@
     
 }
 
-//***Lock Orientation***
-/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}*/
-//**********************
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
 
@@ -264,16 +257,10 @@
 {
     for(NSDictionary *currentResult in results)
     {        
-        // Initialize object
-        EtsyListing *currentListing = [[EtsyListing alloc]init];
-        
-        // Get title from dictionary
-        currentListing.listingTitle = [[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities];
-        
-        // Get image URL from dictionary
-        NSDictionary *mainImageDict = [currentResult objectForKey:@"MainImage"];
-        currentListing.listingImageURL = [mainImageDict objectForKey:@"url_170x135"];
-        
+        // Initialize object with title and imageURL from dictionary
+        EtsyListing *currentListing = [[EtsyListing alloc]
+                                       initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
+                                       andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
         // Add to array
         [searchResultsArray addObject:currentListing];
     }

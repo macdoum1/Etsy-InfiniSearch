@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString *listingTitle;
 @property (nonatomic, strong) NSString *listingImageURL;
 
+- (id)initWithTitle:(NSString *)title andListingImageURL:(NSString *)url;
+
 @end

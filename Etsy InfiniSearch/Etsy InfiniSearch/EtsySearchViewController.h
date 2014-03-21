@@ -15,6 +15,7 @@
 #import "UIImageView+WebCache.h"
 
 
+
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate>
 
 // UICollectionView to display search results
