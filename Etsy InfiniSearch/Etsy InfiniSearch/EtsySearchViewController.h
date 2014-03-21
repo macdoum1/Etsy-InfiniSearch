@@ -16,9 +16,6 @@
 
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate>
-{
-    
-}
 
 // UICollectionView to display search results
 @property (nonatomic, strong) IBOutlet UICollectionView *searchResultsCollectionView;
@@ -34,8 +31,6 @@
 
 // UIButton for sorting
 @property (nonatomic, strong) IBOutlet UIButton *sortButton;
-
-
 
 - (IBAction)sortBy:(id)sender;
 

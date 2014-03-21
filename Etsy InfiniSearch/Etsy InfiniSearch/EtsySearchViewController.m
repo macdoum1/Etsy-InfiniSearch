@@ -54,13 +54,13 @@
     [super viewDidLoad];
     
     // Set UICollectionView Delegate
-    [searchResultsCollectionView setDelegate:self];
+    searchResultsCollectionView.delegate = self;
     
     // Set UICollectionView Source
-    [searchResultsCollectionView setDataSource:self];
+    searchResultsCollectionView.dataSource = self;
     
     // Set UISearchBar Delegate
-    [etsySearchBar setDelegate:self];
+    etsySearchBar.delegate = self;
     
     // Initialize responseData
     responseData = [[NSMutableData alloc]init];
