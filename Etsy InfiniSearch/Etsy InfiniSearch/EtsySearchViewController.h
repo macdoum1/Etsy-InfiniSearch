@@ -15,32 +15,9 @@
 #import "UIImageView+WebCache.h"
 
 
-
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate>
 {
-    // Holds NSURLConnection data
-    NSMutableData *responseData;
     
-    // Holds search results
-    NSMutableArray *searchResultsArray;
-    
-    // Current keyword & current offset for loading more pages
-    NSString *currentKeyword;
-    int currentOffset;
-    
-    // Current maximum scroll index
-    NSInteger maximumScrollIndex;
-    BOOL currentlyLoadingMore;
-    
-    // Views need for adding search/loading indicator
-    UIView *searchIcon;
-    UIActivityIndicatorView *spinner;
-    
-    // NSArray of sorting methods
-    NSArray *sortMethods;
-    
-    // Current sort method
-    NSInteger currentSortMethod;
 }
 
 // UICollectionView to display search results

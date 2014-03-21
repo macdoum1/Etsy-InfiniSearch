@@ -10,11 +10,36 @@
 
 @interface EtsySearchViewController ()
 
+// Holds NSURLConnection data
+@property (nonatomic, strong) NSMutableData *responseData;
+
+// Holds search results
+@property (nonatomic, strong) NSMutableArray *searchResultsArray;
+
+// Current keyword & current offset for loading more pages
+@property (nonatomic, strong) NSString *currentKeyword;
+@property (nonatomic) int currentOffset;
+
+// Current maximum scroll index
+@property (nonatomic) NSInteger maximumScrollIndex;
+@property (nonatomic) BOOL currentlyLoadingMore;
+
+// Views need for adding search/loading indicator
+@property (nonatomic, strong) UIView *searchIcon;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
+// NSArray of sorting methods
+@property (nonatomic, strong) NSArray *sortMethods;
+
+// Current sort method
+@property (nonatomic) NSInteger currentSortMethod;
+
 @end
 
 @implementation EtsySearchViewController
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar;
+
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,responseData,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
