@@ -171,7 +171,7 @@
     }
 
     // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@",API_KEY,keyword,offset,sortPostfix];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortPostfix,NUM_RESULTS_PER_LOAD];
     
     // Create NSURL object from the URL String
     NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
@@ -305,15 +305,7 @@
 {
     // Ensures that number of listings to be shown is divisible by the column count
     // to prevent asymmetry. However if 
-    
-    if([searchResultsArray count] > NUM_RESULTS_PER_LOAD - 1)
-    {
-        return ([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS));
-    }
-    else
-    {
-        return [searchResultsArray count];
-    }
+    return [searchResultsArray count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
