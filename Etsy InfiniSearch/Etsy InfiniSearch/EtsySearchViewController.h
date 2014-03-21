@@ -27,7 +27,7 @@
 @property (nonatomic, strong) IBOutlet LoadMoreView *loadMoreView;
 
 // UIView for sortbar
-@property (nonatomic, strong) IBOutlet UIView *sortBar;
+@property (nonatomic, strong) IBOutlet UIToolbar *sortBar;
 
 // UIButton for sorting
 @property (nonatomic, strong) IBOutlet UIButton *sortButton;

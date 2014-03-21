@@ -79,10 +79,10 @@
 }
 
 //***Lock Orientation***
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+}*/
 //**********************
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -305,8 +305,7 @@
 // Determines how many cells should be shown
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
-    // Ensures that number of listings to be shown is divisible by the column count
-    // to prevent asymmetry. However if
+    // Returns number of items in searchResultsArray
     return [searchResultsArray count];
 }
 
@@ -358,7 +357,7 @@
     
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
-    if(maximumScrollIndex == (([searchResultsArray count] - ([searchResultsArray count] % NUM_OF_COLS) - 1)) && !currentlyLoadingMore)
+    if((maximumScrollIndex == [searchResultsArray count] - 1) && !currentlyLoadingMore)
     {
         [self loadMoreResults];
     }
@@ -373,6 +372,7 @@
     
     // Update offset
     currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+    
     // Load more results
     [self loadSearchResultsWithOffset:currentOffset];
     
