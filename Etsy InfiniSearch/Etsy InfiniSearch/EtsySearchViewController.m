@@ -74,6 +74,8 @@
     // Initialize indicator
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
+    //[self.searchResultsCollectionView registerClass:[ResultCell class] forCellWithReuseIdentifier:@"ResultCell"];
+    
 }
 
 //***Lock Orientation***
@@ -304,7 +306,7 @@
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
     // Ensures that number of listings to be shown is divisible by the column count
-    // to prevent asymmetry. However if 
+    // to prevent asymmetry. However if
     return [searchResultsArray count];
 }
 
@@ -322,26 +324,8 @@
     // Get correct listing from searchResultsArray
     EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
     
-    // Set Image with URL using SDWebImage (supports cacheing and loading asynchronously)
-    [cell.listingImage setImageWithURL:[NSURL URLWithString:tempListing.listingImageURL]];
-
-    // Set cell listing title from Etsy listing object
-    cell.listingLabel.text = tempListing.listingTitle;
-
-    
-    // Ensure image does not exceed edges of mask (due to cell needing maskToBounds off for drop shadow)
-    cell.listingImage.layer.masksToBounds = YES;
-
-    // Set drop shadow of UICollectionViewCell
-    cell.layer.masksToBounds = NO;
-    cell.layer.borderColor = [[UIColor whiteColor] CGColor];
-    cell.layer.borderWidth = 1.0f;
-    cell.layer.contentsScale = [UIScreen mainScreen].scale;
-    cell.layer.shadowRadius = 4.0f;
-    cell.layer.shadowOpacity = 0.75f;
-    cell.layer.shadowOffset = CGSizeZero;
-    cell.layer.shadowPath = [UIBezierPath bezierPathWithRect:cell.bounds].CGPath;
-    cell.layer.shouldRasterize = YES;
+    // Format and set both the label and image of the cell
+    [cell formatAndSetImage:tempListing.listingImageURL andTitle:tempListing.listingTitle];
     
     // Return cell
     return cell;

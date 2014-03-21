@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
+
 
 @interface ResultCell : UICollectionViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *listingLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *listingImage;
+
+- (void)formatAndSetImage:(NSString *)imageURL andTitle:(NSString *)title;
 
 @end
