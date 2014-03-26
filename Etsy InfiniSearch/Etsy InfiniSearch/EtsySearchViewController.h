@@ -16,8 +16,6 @@
 #import "EtsySortMethod.h"
 #import "EtsySearch.h"
 
-
-
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate,EtsySearchDelegate>
 
 // UICollectionView to display search results

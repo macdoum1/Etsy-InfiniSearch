@@ -286,12 +286,6 @@
 
 - (IBAction)sortBy:(id)sender
 {
-    // Show UIActionSheet when SortBy method button is pressed
-    [self showSortByActionSheet];
-}
-
--(void)showSortByActionSheet
-{
     // Initialize actionSheet
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By:" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
