@@ -302,6 +302,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Determine if first element in each load
+    if(indexPath.row == currentOffset + 1)
+    {
+        // Clear cache to prevent memory leaks
+        [[SDImageCache sharedImageCache] clearMemory];
+    }
     // Dequeue with ID into custom cell
     ResultCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ResultCell" forIndexPath:indexPath];
     
@@ -334,19 +340,11 @@
         }
     }
     
-    // First (or second depending on orientation) element of new load is visible
-    if(maximumScrollIndex == currentOffset + 1 || maximumScrollIndex == currentOffset + 2)
-    {
-        // Clear cache to prevent memory leaks
-        [[SDImageCache sharedImageCache] clearMemory];
-    }
-    
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
     if((maximumScrollIndex == [searchResultsArray count] - 1) && !currentlyLoadingMore)
     {
         [self loadMoreResults];
-        
     }
 }
 
