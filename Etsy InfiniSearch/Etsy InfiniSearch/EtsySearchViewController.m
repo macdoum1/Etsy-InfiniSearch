@@ -148,23 +148,10 @@
 }
 
 // EtsySearchDelegate searchDidFinish method
-- (void)searchDidFinish:(NSDictionary *)searchResults
+- (void)searchDidFinish:(NSMutableArray *)searchResults
 {
-    // Get results and store in NSArray
-    NSArray* allResults = [searchResults objectForKey:@"results"];
-    
-    // Parse results into EtsyListing objects
-    for(NSDictionary *currentResult in allResults)
-    {
-        // Initialize object with title and imageURL from dictionary
-        EtsyListing *currentListing = [[EtsyListing alloc]
-                                       initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
-                                       andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
-        // Add to array
-        [searchResultsArray addObject:currentListing];
-    }
-    
-    
+    // Append objects from EtsySearch to array to be displayed
+    [searchResultsArray addObjectsFromArray:searchResults];
     
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];

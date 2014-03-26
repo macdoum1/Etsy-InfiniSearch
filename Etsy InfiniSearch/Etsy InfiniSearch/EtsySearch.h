@@ -13,7 +13,7 @@
 @protocol EtsySearchDelegate <NSObject>
 
 // Returns search results from Etsy when NSURL connection is complete
-- (void)searchDidFinish:(NSDictionary *)searchResults;
+- (void)searchDidFinish:(NSMutableArray *)searchResults;
 
 // If no results are found
 - (void)noResultsFound;
