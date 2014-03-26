@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2721954518E3646B00523167 /* EtsySortMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954418E3646B00523167 /* EtsySortMethod.m */; };
 		274EC5F718D51A0A00791BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5F618D51A0A00791BEF /* Foundation.framework */; };
 		274EC5F918D51A0A00791BEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5F818D51A0A00791BEF /* CoreGraphics.framework */; };
 		274EC5FB18D51A0A00791BEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5FA18D51A0A00791BEF /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2721954318E3646B00523167 /* EtsySortMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsySortMethod.h; sourceTree = "<group>"; };
+		2721954418E3646B00523167 /* EtsySortMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySortMethod.m; sourceTree = "<group>"; };
 		274EC5F318D51A0A00791BEF /* Etsy InfiniSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Etsy InfiniSearch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274EC5F618D51A0A00791BEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		274EC5F818D51A0A00791BEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -218,6 +221,8 @@
 			children = (
 				274EC63118D530D200791BEF /* EtsyListing.h */,
 				274EC63218D530D200791BEF /* EtsyListing.m */,
+				2721954318E3646B00523167 /* EtsySortMethod.h */,
+				2721954418E3646B00523167 /* EtsySortMethod.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 				274EC63818D635D100791BEF /* ResultCell.m in Sources */,
 				274EC62D18D51A4800791BEF /* EtsyConstants.m in Sources */,
 				274EC60718D51A0A00791BEF /* AppDelegate.m in Sources */,
+				2721954518E3646B00523167 /* EtsySortMethod.m in Sources */,
 				27EDC83018D7BD0700A0B843 /* UIButton+WebCache.m in Sources */,
 				27EDC82F18D7BD0700A0B843 /* SDWebImagePrefetcher.m in Sources */,
 				27EDC82D18D7BD0700A0B843 /* SDWebImageDownloaderOperation.m in Sources */,

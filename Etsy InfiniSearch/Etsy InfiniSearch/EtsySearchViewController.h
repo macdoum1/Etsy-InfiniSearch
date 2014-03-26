@@ -13,6 +13,7 @@
 #import "NSString+HTML.h"
 #import "LoadMoreView.h"
 #import "UIImageView+WebCache.h"
+#import "EtsySortMethod.h"
 
 
 

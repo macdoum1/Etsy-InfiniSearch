@@ -68,13 +68,14 @@
     currentOffset = 0;
     
     // Set up sort methods
-    sortMethods = [[NSArray alloc]initWithObjects:@"Most Recent",@"Highest Price",@"Lowest Price",@"Highest Score", nil];
+    sortMethods = [[NSArray alloc]initWithObjects:
+                   [[EtsySortMethod alloc]initWithName:@"Most Recent" andPrefix:@""],
+                   [[EtsySortMethod alloc]initWithName:@"Highest Price" andPrefix:@"&sort_on=price&sort_order=down"],
+                   [[EtsySortMethod alloc]initWithName:@"Lowest Price" andPrefix:@"&sort_on=price&sort_order=up"],
+                   [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sort_on=score&sort_order=down"],nil];
     
     // Initialize indicator
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    
-    //[self.searchResultsCollectionView registerClass:[ResultCell class] forCellWithReuseIdentifier:@"ResultCell"];
-    
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -142,29 +143,10 @@
     // UTF8 String encoding
     NSString *keyword = [currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    // Select the correct URL postfix for the selected sorting method
-    NSString *sortPostfix = @"";
-    switch (currentSortMethod)
-    {
-        case 0:
-            sortPostfix = @"";
-            break;
-        case 1:
-            sortPostfix = @"&sort_on=price&sort_order=down";
-            break;
-        case 2:
-            sortPostfix = @"&sort_on=price&sort_order=up";
-            break;
-        case 3:
-            sortPostfix = @"&sort_on=score&sort_order=down";
-            break;
-        default:
-            sortPostfix = @"";
-            break;
-    }
+    EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
 
     // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortPostfix,NUM_RESULTS_PER_LOAD];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
     
     // Create NSURL object from the URL String
     NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
@@ -375,9 +357,9 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By:" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     // Add sort methods to action sheet from array
-    for(NSString *s in sortMethods)
+    for(EtsySortMethod *s in sortMethods)
     {
-        [actionSheet addButtonWithTitle:s];
+        [actionSheet addButtonWithTitle:s.sortMethodName];
     }
     
     // Add cancel button to action sheet (to ensure its at the end of the actionsheet)
@@ -398,7 +380,7 @@
         currentSortMethod = buttonIndex;
         
         // Set button text to match current sort method
-        [sortButton setTitle:[sortMethods objectAtIndex:buttonIndex] forState:UIControlStateNormal];
+        [sortButton setTitle:((EtsySortMethod *)[sortMethods objectAtIndex:buttonIndex]).sortMethodName forState:UIControlStateNormal];
         
         // Perform new search
         [self performNewSearch];

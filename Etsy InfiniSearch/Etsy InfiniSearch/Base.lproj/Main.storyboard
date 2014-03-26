@@ -106,7 +106,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-Iw-TYU">
-                                        <rect key="frame" x="78" y="0.0" width="164" height="40"/>
+                                        <rect key="frame" x="78" y="0.0" width="185" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uap-Aa-jnf">
@@ -117,7 +117,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8l-PF-pOa">
-                                                <rect key="frame" x="70" y="5" width="94" height="30"/>
+                                                <rect key="frame" x="70" y="5" width="115" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Most Recent">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,7 +133,7 @@
                                             <constraint firstItem="b8l-PF-pOa" firstAttribute="leading" secondItem="Uap-Aa-jnf" secondAttribute="trailing" constant="8" symbolic="YES" id="KVF-We-a8N"/>
                                             <constraint firstAttribute="bottom" secondItem="Uap-Aa-jnf" secondAttribute="bottom" constant="10" id="XLA-BT-ESa"/>
                                             <constraint firstItem="b8l-PF-pOa" firstAttribute="top" secondItem="t5t-Iw-TYU" secondAttribute="top" constant="5" id="eEb-nS-lXp"/>
-                                            <constraint firstAttribute="width" constant="164" id="fTq-2F-JkU"/>
+                                            <constraint firstAttribute="width" constant="185" id="fTq-2F-JkU"/>
                                             <constraint firstItem="Uap-Aa-jnf" firstAttribute="top" secondItem="t5t-Iw-TYU" secondAttribute="top" constant="9" id="p5q-66-BCz"/>
                                             <constraint firstItem="Uap-Aa-jnf" firstAttribute="leading" secondItem="t5t-Iw-TYU" secondAttribute="leading" id="vRi-su-bI2"/>
                                         </constraints>
@@ -145,7 +145,7 @@
                                     <constraint firstAttribute="height" constant="40" id="70c-i8-puU"/>
                                     <constraint firstAttribute="bottom" secondItem="t5t-Iw-TYU" secondAttribute="bottom" id="UHj-6v-XFo"/>
                                     <constraint firstItem="t5t-Iw-TYU" firstAttribute="top" secondItem="UWf-jG-1n2" secondAttribute="top" id="gDr-OJ-vLr"/>
-                                    <constraint firstAttribute="centerX" secondItem="t5t-Iw-TYU" secondAttribute="centerX" id="nSm-Rg-FUu"/>
+                                    <constraint firstAttribute="centerX" secondItem="t5t-Iw-TYU" secondAttribute="centerX" constant="-10.5" id="nSm-Rg-FUu"/>
                                     <constraint firstItem="Vrm-i8-fHP" firstAttribute="top" secondItem="UWf-jG-1n2" secondAttribute="top" constant="9" id="wn9-YM-slS"/>
                                 </constraints>
                             </view>
