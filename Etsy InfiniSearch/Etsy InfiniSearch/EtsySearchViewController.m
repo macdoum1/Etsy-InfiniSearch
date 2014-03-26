@@ -187,19 +187,19 @@
     }
 }
 
-// NSURLConnection didReceiveResponse Delegate Method
+// NSURLConnection didReceiveResponse Method
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     [responseData setLength:0];
 }
 
-// NSURLConnection didReceiveData Delegate Method
+// NSURLConnection didReceiveData Method
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [responseData appendData:data];
 }
 
-// NSURLConnection didFailWithError Delegate Method
+// NSURLConnection didFailWithError Method
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error
 {
@@ -212,7 +212,7 @@
     [message show];
 }
 
-// NSURLConnection didFinishLoading Delegate Method
+// NSURLConnection didFinishLoading Method
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSError *error;
