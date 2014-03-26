@@ -50,14 +50,25 @@
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error
 {
+    // Alert delegate that search failed
     [delegate searchFailed];
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSError *error;
+    
     // Parse response data to dictionary object using JSONSerialization
     NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-    [delegate searchDidFinish:responseDataDictionary];
+    
+    // Alert delegate that search is finished and pass results
+    if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
+    {
+        [delegate searchDidFinish:responseDataDictionary];
+    }
+    else
+    {
+        [delegate noResultsFound];
+    }
 }
 
 @end

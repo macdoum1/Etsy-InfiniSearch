@@ -150,54 +150,12 @@
 // EtsySearchDelegate searchDidFinish method
 - (void)searchDidFinish:(NSDictionary *)searchResults
 {
-    // Ensure more than zero results
-    if([[searchResults objectForKey:@"count"] intValue] > 0)
+    // Get results and store in NSArray
+    NSArray* allResults = [searchResults objectForKey:@"results"];
+    
+    // Parse results into EtsyListing objects
+    for(NSDictionary *currentResult in allResults)
     {
-        // Get results and store in NSArray
-        NSArray* allResults = [searchResults objectForKey:@"results"];
-        
-        // Parse results into EtsyListing objects
-        [self parseSearchResults:allResults];
-    }
-    else
-    {
-        // Switch loading indicator to search icon
-        [self toggleSearchIndicator:0];
-        
-        // Disable sort bar if no results are found
-        [sortBar setHidden:YES];
-        
-        // Do not show no results found if no more listings exist
-        if(!currentlyLoadingMore)
-        {
-            // UIAlert for no results
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
-                                                              message:@""
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"OK"
-                                                    otherButtonTitles:nil];
-            [message show];
-        }
-    }
-}
-
-// EtsySearchDelegate searchFailed method
-- (void)searchFailed
-{
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection failed"
-                                                      message:@"Please check your internet connection"
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
-}
-
-
-// Parses search results into EtsyListing objects
-- (void)parseSearchResults:(NSArray *)results
-{
-    for(NSDictionary *currentResult in results)
-    {        
         // Initialize object with title and imageURL from dictionary
         EtsyListing *currentListing = [[EtsyListing alloc]
                                        initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
@@ -206,7 +164,7 @@
         [searchResultsArray addObject:currentListing];
     }
     
-   
+    
     
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];
@@ -219,7 +177,7 @@
     
     // Switch loading indicator to search icon
     [self toggleSearchIndicator:0];
-
+    
     // Show sorting bar
     [sortBar setHidden:NO];
     
@@ -228,6 +186,39 @@
     
     // Reset LoadMoreView
     [loadMoreView slideDown];
+}
+
+// EtsySearchDelegate noResultsFound method
+- (void)noResultsFound
+{
+    // Switch loading indicator to search icon
+    [self toggleSearchIndicator:0];
+    
+    // Disable sort bar if no results are found
+    [sortBar setHidden:YES];
+    
+    // Do not show no results found if no more listings exist
+    if(!currentlyLoadingMore)
+    {
+        // UIAlert for no results
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
+                                                          message:@""
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
+}
+
+// EtsySearchDelegate searchFailed method
+- (void)searchFailed
+{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection failed"
+                                                      message:@"Please check your internet connection"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
 }
 
 // Determines how many cells should be shown
