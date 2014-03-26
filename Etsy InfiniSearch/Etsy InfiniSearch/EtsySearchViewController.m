@@ -337,7 +337,6 @@
     // First (or second depending on orientation) element of new load is visible
     if(maximumScrollIndex == currentOffset + 1 || maximumScrollIndex == currentOffset + 2)
     {
-        NSLog(@"Clear");
         // Clear cache to prevent memory leaks
         [[SDImageCache sharedImageCache] clearMemory];
     }
