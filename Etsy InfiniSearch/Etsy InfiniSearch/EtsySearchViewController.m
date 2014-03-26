@@ -52,7 +52,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     // Set UICollectionView Delegate
     searchResultsCollectionView.delegate = self;
     
@@ -80,7 +79,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-
     // Dismiss keyboard once search is pressed
     [searchBar resignFirstResponder];
     
@@ -336,7 +334,8 @@
         }
     }
     
-    if(maximumScrollIndex == currentOffset)
+    // First element of new load is visible
+    if(maximumScrollIndex == currentOffset + 1)
     {
         // Clear cache to prevent memory leaks
         [[SDImageCache sharedImageCache] clearMemory];
@@ -347,6 +346,7 @@
     if((maximumScrollIndex == [searchResultsArray count] - 1) && !currentlyLoadingMore)
     {
         [self loadMoreResults];
+        
     }
 }
 
