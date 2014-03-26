@@ -10,9 +10,6 @@
 
 @interface EtsySearchViewController ()
 
-// Holds NSURLConnection data
-@property (nonatomic, strong) NSMutableData *responseData;
-
 // Holds search results
 @property (nonatomic, strong) NSMutableArray *searchResultsArray;
 
@@ -39,7 +36,7 @@
 @implementation EtsySearchViewController
 
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,responseData,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,9 +57,6 @@
     
     // Set UISearchBar Delegate
     etsySearchBar.delegate = self;
-    
-    // Initialize responseData
-    responseData = [[NSMutableData alloc]init];
     
     // Set current offset to zero
     currentOffset = 0;
@@ -148,64 +142,19 @@
     // Create NSString using API URL, API Key, and the contents of the search bar
     NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
     
-    // Create NSURL object from the URL String
-    NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
-    
-    // Create NSURLRequest object from URL
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:requestURL];
-    
-    // Create NSURLConnection from request object
-    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-    
-    if(!connection)
-    {
-        // UIAlert for failed connection
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                          message:@"Connection to the server could not be made"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-    }
+    EtsySearch *search = [[EtsySearch alloc]init];
+    search.delegate = self;
+    [search searchWithURLString:urlString];
 }
 
-// NSURLConnection didReceiveResponse Method
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+// EtsySearchDelegate searchDidFinish method
+- (void)searchDidFinish:(NSDictionary *)searchResults
 {
-    [responseData setLength:0];
-}
-
-// NSURLConnection didReceiveData Method
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [responseData appendData:data];
-}
-
-// NSURLConnection didFailWithError Method
-- (void)connection:(NSURLConnection *)connection
-  didFailWithError:(NSError *)error
-{
-    // UIAlert for failed connection
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                                      message:@"Connection to the server could not be made"
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
-}
-
-// NSURLConnection didFinishLoading Method
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSError *error;
-    // Parse response data to dictionary object using JSONSerialization
-    NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-    
     // Ensure more than zero results
-    if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
+    if([[searchResults objectForKey:@"count"] intValue] > 0)
     {
         // Get results and store in NSArray
-        NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
+        NSArray* allResults = [searchResults objectForKey:@"results"];
         
         // Parse results into EtsyListing objects
         [self parseSearchResults:allResults];
@@ -214,7 +163,7 @@
     {
         // Switch loading indicator to search icon
         [self toggleSearchIndicator:0];
-
+        
         // Disable sort bar if no results are found
         [sortBar setHidden:YES];
         
@@ -231,6 +180,18 @@
         }
     }
 }
+
+// EtsySearchDelegate searchFailed method
+- (void)searchFailed
+{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection failed"
+                                                      message:@"Please check your internet connection"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+}
+
 
 // Parses search results into EtsyListing objects
 - (void)parseSearchResults:(NSArray *)results

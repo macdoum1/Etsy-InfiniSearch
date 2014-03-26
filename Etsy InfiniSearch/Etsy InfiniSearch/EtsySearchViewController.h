@@ -14,10 +14,11 @@
 #import "LoadMoreView.h"
 #import "UIImageView+WebCache.h"
 #import "EtsySortMethod.h"
+#import "EtsySearch.h"
 
 
 
-@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate>
+@interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate,EtsySearchDelegate>
 
 // UICollectionView to display search results
 @property (nonatomic, strong) IBOutlet UICollectionView *searchResultsCollectionView;

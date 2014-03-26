@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2721954518E3646B00523167 /* EtsySortMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954418E3646B00523167 /* EtsySortMethod.m */; };
+		2721954B18E36A0800523167 /* EtsySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954A18E36A0800523167 /* EtsySearch.m */; };
+		2721954E18E3715C00523167 /* EtsyParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954D18E3715C00523167 /* EtsyParser.m */; };
 		274EC5F718D51A0A00791BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5F618D51A0A00791BEF /* Foundation.framework */; };
 		274EC5F918D51A0A00791BEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5F818D51A0A00791BEF /* CoreGraphics.framework */; };
 		274EC5FB18D51A0A00791BEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5FA18D51A0A00791BEF /* UIKit.framework */; };
@@ -56,6 +58,10 @@
 /* Begin PBXFileReference section */
 		2721954318E3646B00523167 /* EtsySortMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsySortMethod.h; sourceTree = "<group>"; };
 		2721954418E3646B00523167 /* EtsySortMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySortMethod.m; sourceTree = "<group>"; };
+		2721954918E36A0800523167 /* EtsySearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsySearch.h; sourceTree = "<group>"; };
+		2721954A18E36A0800523167 /* EtsySearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySearch.m; sourceTree = "<group>"; };
+		2721954C18E3715C00523167 /* EtsyParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsyParser.h; sourceTree = "<group>"; };
+		2721954D18E3715C00523167 /* EtsyParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsyParser.m; sourceTree = "<group>"; };
 		274EC5F318D51A0A00791BEF /* Etsy InfiniSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Etsy InfiniSearch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274EC5F618D51A0A00791BEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		274EC5F818D51A0A00791BEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -242,6 +248,10 @@
 				27EDC80918D7BD0700A0B843 /* SDWebImage */,
 				274EC63918D6545200791BEF /* NSString+HTML.h */,
 				274EC63A18D6545200791BEF /* NSString+HTML.m */,
+				2721954918E36A0800523167 /* EtsySearch.h */,
+				2721954A18E36A0800523167 /* EtsySearch.m */,
+				2721954C18E3715C00523167 /* EtsyParser.h */,
+				2721954D18E3715C00523167 /* EtsyParser.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -416,10 +426,12 @@
 				27EDC82F18D7BD0700A0B843 /* SDWebImagePrefetcher.m in Sources */,
 				27EDC82D18D7BD0700A0B843 /* SDWebImageDownloaderOperation.m in Sources */,
 				274EC63B18D6545200791BEF /* NSString+HTML.m in Sources */,
+				2721954E18E3715C00523167 /* EtsyParser.m in Sources */,
 				274EC63318D530D200791BEF /* EtsyListing.m in Sources */,
 				27EDC83218D7BD0700A0B843 /* UIImage+MultiFormat.m in Sources */,
 				274EC60318D51A0A00791BEF /* main.m in Sources */,
 				27EDC82918D7BD0700A0B843 /* SDImageCache.m in Sources */,
+				2721954B18E36A0800523167 /* EtsySearch.m in Sources */,
 				274EC63018D51B3200791BEF /* EtsySearchViewController.m in Sources */,
 				274EC64018D65D5600791BEF /* LoadMoreView.m in Sources */,
 				27EDC83118D7BD0700A0B843 /* UIImage+GIF.m in Sources */,
