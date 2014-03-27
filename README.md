@@ -14,6 +14,7 @@ Appliation that utilizes Etsy's search API to create an infinite scrolling inter
 4. Displays listings in a UICollectionView with custom UICollectionViewCells 
 5. UICollectionView is infinitely scrolling with a loading indicator when loading more listings
 6. Sorting options include Most Recent, Highest Price, Lowest Price, and Highest Score
+7. Supports both Portrait & Landscape with AutoLayout
 
 <b>Screenshots</b>
 -----
