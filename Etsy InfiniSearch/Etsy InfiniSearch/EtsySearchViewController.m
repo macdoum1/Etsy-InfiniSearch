@@ -142,9 +142,8 @@
     // Create NSString using API URL, API Key, and the contents of the search bar
     NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
     
-    EtsySearch *search = [[EtsySearch alloc]init];
+    EtsySearch *search = [[EtsySearch alloc]initWithURLString:urlString];
     search.delegate = self;
-    [search searchWithURLString:urlString];
 }
 
 // EtsySearchDelegate searchDidFinish method

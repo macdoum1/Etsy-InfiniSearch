@@ -15,23 +15,28 @@
 
 @synthesize delegate;
 
-- (void) searchWithURLString:(NSString *)urlString
+- (id) initWithURLString:(NSString *)urlString
 {
-    // Initialize Response Data
-    responseData = [[NSMutableData alloc]init];
-    
-    // Create NSURL object from the URL String
-    NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
-    
-    // Create NSURLRequest object from URL
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:requestURL];
-    
-    // Create NSURLConnection from request object
-    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-    if(!connection)
+    self = [super init];
+    if(self)
     {
-        [delegate searchFailed];
+        // Initialize Response Data
+        responseData = [[NSMutableData alloc]init];
+        
+        // Create NSURL object from the URL String
+        NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
+        
+        // Create NSURLRequest object from URL
+        NSURLRequest *request = [[NSURLRequest alloc]initWithURL:requestURL];
+        
+        // Create NSURLConnection from request object
+        NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+        if(!connection)
+        {
+            [delegate searchFailed];
+        }
     }
+    return self;
 }
 
 // NSURLConnection didReceiveResponse Method

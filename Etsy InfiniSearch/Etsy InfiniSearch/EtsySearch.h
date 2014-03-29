@@ -27,7 +27,7 @@
 
 @property (nonatomic, weak) id <EtsySearchDelegate> delegate;
 
-// Begins Etsy search with given URL string
-- (void) searchWithURLString:(NSString *)urlString;
+// Initializes object and starts async connection
+- (id) initWithURLString:(NSString *)urlString;
 
 @end
