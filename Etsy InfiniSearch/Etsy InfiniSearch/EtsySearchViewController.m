@@ -112,12 +112,12 @@
         // If sortBar is hidden, place spinner below searchBar
         if([sortBar isHidden])
         {
-            [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 15, 0, 0)];
+            [spinner setFrame:CGRectMake(sortBar.frame.size.width/2, sortBar.frame.origin.y + 15, 0, 0)];
         }
         // If sortBar is not hidden place spinner below sortBar
         else
         {
-            [spinner setFrame:CGRectMake(searchResultsCollectionView.frame.size.width/2, sortBar.frame.origin.y + 50, 0, 0)];
+            [spinner setFrame:CGRectMake(sortBar.frame.size.width/2, sortBar.frame.origin.y + 50, 0, 0)];
         }
         
         // Add spinner to view & start animating
