@@ -25,12 +25,6 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-}
-
-- (void)formatCell
-{
-    // Set drop shadow, border and other cell formatting options
     self.layer.masksToBounds = NO;
     self.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.layer.borderWidth = 1.0f;
@@ -43,7 +37,8 @@
     self.listingImage.layer.masksToBounds = YES;
 }
 
-- (void)formatAndSetImage:(NSString *)imageURL andTitle:(NSString *)title
+
+- (void)setImage:(NSString *)imageURL andTitle:(NSString *)title
 {
     // Set Image with URL using SDWebImage (supports cacheing and loading asynchronously)
     [self.listingImage setImageWithURL:[NSURL URLWithString:imageURL]];
@@ -51,8 +46,6 @@
     // Set UILabel
     self.listingLabel.text = title;
     
-    // Format cell
-    [self formatCell];
 }
 
 

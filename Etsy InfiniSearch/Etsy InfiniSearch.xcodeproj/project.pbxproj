@@ -28,6 +28,7 @@
 		274EC63818D635D100791BEF /* ResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63718D635D100791BEF /* ResultCell.m */; };
 		274EC63B18D6545200791BEF /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63A18D6545200791BEF /* NSString+HTML.m */; };
 		274EC64018D65D5600791BEF /* LoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274EC63F18D65D5600791BEF /* LoadMoreView.m */; };
+		27984C8C18EA27FE00A19A43 /* MMLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 27984C8B18EA27FE00A19A43 /* MMLoadingIndicator.m */; };
 		27EDC82718D7BD0700A0B843 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EDC80B18D7BD0700A0B843 /* MKAnnotationView+WebCache.m */; };
 		27EDC82818D7BD0700A0B843 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EDC80D18D7BD0700A0B843 /* NSData+ImageContentType.m */; };
 		27EDC82918D7BD0700A0B843 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EDC80F18D7BD0700A0B843 /* SDImageCache.m */; };
@@ -88,6 +89,8 @@
 		274EC63A18D6545200791BEF /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		274EC63E18D65D5600791BEF /* LoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreView.h; sourceTree = "<group>"; };
 		274EC63F18D65D5600791BEF /* LoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreView.m; sourceTree = "<group>"; };
+		27984C8A18EA27FE00A19A43 /* MMLoadingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLoadingIndicator.h; sourceTree = "<group>"; };
+		27984C8B18EA27FE00A19A43 /* MMLoadingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoadingIndicator.m; sourceTree = "<group>"; };
 		27EDC80A18D7BD0700A0B843 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		27EDC80B18D7BD0700A0B843 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		27EDC80C18D7BD0700A0B843 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -263,6 +266,8 @@
 		274EC64118D65D6100791BEF /* Views/Cells */ = {
 			isa = PBXGroup;
 			children = (
+				27984C8A18EA27FE00A19A43 /* MMLoadingIndicator.h */,
+				27984C8B18EA27FE00A19A43 /* MMLoadingIndicator.m */,
 				274EC63E18D65D5600791BEF /* LoadMoreView.h */,
 				274EC63F18D65D5600791BEF /* LoadMoreView.m */,
 				274EC63618D635D100791BEF /* ResultCell.h */,
@@ -408,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27EDC83418D7BD0700A0B843 /* UIImageView+WebCache.m in Sources */,
+				27984C8C18EA27FE00A19A43 /* MMLoadingIndicator.m in Sources */,
 				27EDC82B18D7BD0700A0B843 /* SDWebImageDecoder.m in Sources */,
 				27EDC82E18D7BD0700A0B843 /* SDWebImageManager.m in Sources */,
 				27EDC82818D7BD0700A0B843 /* NSData+ImageContentType.m in Sources */,

@@ -23,7 +23,7 @@
 
 // Views need for adding search/loading indicator
 @property (nonatomic, strong) UIView *searchIcon;
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) MMLoadingIndicator *spinner;
 
 // NSArray of sorting methods
 @property (nonatomic, strong) NSArray *sortMethods;
@@ -69,7 +69,7 @@
                    [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sort_on=score&sort_order=down"],nil];
     
     // Initialize indicator
-    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner = [[MMLoadingIndicator alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -112,12 +112,14 @@
         // If sortBar is hidden, place spinner below searchBar
         if([sortBar isHidden])
         {
-            [spinner setFrame:CGRectMake(sortBar.frame.size.width/2, sortBar.frame.origin.y + 15, 0, 0)];
+            CGRect rect = CGRectMake((self.view.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 15, 100, 100);
+            
+            [spinner setFrame:rect];
         }
         // If sortBar is not hidden place spinner below sortBar
         else
         {
-            [spinner setFrame:CGRectMake(sortBar.frame.size.width/2, sortBar.frame.origin.y + 50, 0, 0)];
+            [spinner setFrame:CGRectMake((self.view.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 50, 100, 100)];
         }
         
         // Add spinner to view & start animating
@@ -235,7 +237,7 @@
     EtsyListing *tempListing = [searchResultsArray objectAtIndex:indexPath.row];
     
     // Format and set both the label and image of the cell
-    [cell formatAndSetImage:tempListing.listingImageURL andTitle:tempListing.listingTitle];
+    [cell setImage:tempListing.listingImageURL andTitle:tempListing.listingTitle];
     
     // Return cell
     return cell;

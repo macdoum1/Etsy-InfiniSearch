@@ -15,6 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "EtsySortMethod.h"
 #import "EtsySearch.h"
+#import "MMLoadingIndicator.h"
 
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate,EtsySearchDelegate>
 
