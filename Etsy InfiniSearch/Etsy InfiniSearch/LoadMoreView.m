@@ -34,8 +34,12 @@
         
         // Allows for autolayout
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
         
+        // Setup autolayout
+        [self setupLayoutConstraints];
         
+        self.hidden = YES;
     }
     return self;
 }
@@ -47,6 +51,7 @@
                           delay:0.0f
                         options:UIViewAnimationOptionTransitionNone
                      animations:^{
+                         self.hidden = NO;
                          [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y - self.frame.size.height, self.frame.size.width, self.frame.size.height)];
                      }
                      completion:nil];
@@ -60,13 +65,15 @@
                      animations:^{
                          [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + self.frame.size.height, self.frame.size.width, self.frame.size.height)];
                      }
-                     completion:nil];
+                     completion:^(BOOL finished){
+                         self.hidden = YES;
+                     }];
     [spinner stopAnimating];
 }
 
 - (void)setupLayoutConstraints
 {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
+    /*[self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
@@ -79,7 +86,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:20.0]];
+                                                           constant:20.0]];*/
     [self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
