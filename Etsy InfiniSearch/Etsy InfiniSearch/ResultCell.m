@@ -10,8 +10,6 @@
 
 @implementation ResultCell
 
-@synthesize listingImage,listingLabel;
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
 
     self = [super initWithCoder:aDecoder];

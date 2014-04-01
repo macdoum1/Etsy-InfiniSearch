@@ -10,9 +10,6 @@
 
 @implementation EtsySortMethod
 
-@synthesize sortMethodName;
-@synthesize sortPrefix;
-
 - (id) initWithName:(NSString *)name andPrefix:(NSString *)prefix
 {
     self = [super init];

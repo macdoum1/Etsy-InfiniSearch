@@ -10,8 +10,6 @@
 
 @implementation EtsyListing
 
-@synthesize listingTitle,listingImageURL;
-
 - (id)initWithTitle:(NSString *)title andListingImageURL:(NSString *)url
 {
     self = [super init];

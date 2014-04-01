@@ -11,7 +11,3 @@
 
 extern NSString * const API_KEY;
 extern int const NUM_RESULTS_PER_LOAD;
-
-@interface EtsyConstants : NSObject
-
-@end

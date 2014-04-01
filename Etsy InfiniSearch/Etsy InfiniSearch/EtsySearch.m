@@ -13,14 +13,12 @@
     NSMutableData *responseData;
 }
 
-@synthesize delegate,currentOffset;
-
 - (id) init
 {
     self = [super init];
     if(self)
     {
-        currentOffset = 0;
+        _currentOffset = 0;
     }
     return self;
 }
@@ -43,9 +41,9 @@
     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
     if(!connection)
     {
-        [delegate searchFailed];
+        [_delegate searchFailed];
     }
-    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+    _currentOffset = _currentOffset + NUM_RESULTS_PER_LOAD;
 }
 
 // NSURLConnection didReceiveResponse Method
@@ -65,7 +63,7 @@
   didFailWithError:(NSError *)error
 {
     // Alert delegate that search failed
-    [delegate searchFailed];
+    [_delegate searchFailed];
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -96,16 +94,16 @@
                 [parsedEtsyListings addObject:currentListing];
             }
 
-            [delegate searchDidFinish:parsedEtsyListings];
+            [_delegate searchDidFinish:parsedEtsyListings];
         }
         else
         {
-            [delegate noResultsFound];
+            [_delegate noResultsFound];
         }
     }
     else
     {
-        [delegate searchFailed];
+        [_delegate searchFailed];
     }
 }
 

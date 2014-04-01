@@ -10,8 +10,6 @@
 
 @implementation LoadMoreView
 
-@synthesize spinner;
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -21,20 +19,20 @@
         self.backgroundColor = [UIColor whiteColor];
         
         // Initialize UIActivityIndicatorView
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
         // Set frame for spinner
-        [spinner setFrame:CGRectMake(frame.size.width/2 - spinner.frame.size.width/2, frame.size.height/2 - spinner.frame.size.height/2, 20, 20)];
+        [_spinner setFrame:CGRectMake(frame.size.width/2 - _spinner.frame.size.width/2, frame.size.height/2 - _spinner.frame.size.height/2, 20, 20)];
         
         // Set color of spinner to Etsy orange
-        [spinner setColor:[UIColor colorWithRed:212.0/255.0f green:100.0/255.0f blue:41.0/255.0f alpha:1]];
+        [_spinner setColor:[UIColor colorWithRed:212.0/255.0f green:100.0/255.0f blue:41.0/255.0f alpha:1]];
         
         // Add spinner to superview
-        [self addSubview:spinner];
+        [self addSubview:_spinner];
         
         // Allows for autolayout
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [_spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
         
         // Setup autolayout
         [self setupLayoutConstraints];
@@ -47,7 +45,7 @@
 
 - (void)slideUp
 {
-    [spinner startAnimating];
+    [_spinner startAnimating];
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionTransitionNone
@@ -70,12 +68,12 @@
                      completion:^(BOOL finished){
                          self.hidden = YES;
                      }];
-    [spinner stopAnimating];
+    [_spinner stopAnimating];
 }
 
 - (void)setupLayoutConstraints
 {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_spinner
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self
