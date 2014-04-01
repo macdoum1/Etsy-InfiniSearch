@@ -68,8 +68,16 @@
                    [[EtsySortMethod alloc]initWithName:@"Lowest Price" andPrefix:@"&sort_on=price&sort_order=up"],
                    [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sort_on=score&sort_order=down"],nil];
     
-    // Initialize indicator
-    spinner = [[MMLoadingIndicator alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    // Initialize indicator & add to superview
+    spinner = [[MMLoadingIndicator alloc]init];
+    [self.view addSubview:spinner];
+    
+    // Initialize LoadMoreView offscreen & add to superview
+    loadMoreView = [[LoadMoreView alloc]initWithFrame:CGRectMake(0, 568, 320, 44)];
+    [self.view addSubview:loadMoreView];
+    
+    // Setup Autolayout constraints
+    [self setupLayoutConstraints];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -112,24 +120,20 @@
         // If sortBar is hidden, place spinner below searchBar
         if([sortBar isHidden])
         {
-            CGRect rect = CGRectMake((self.view.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 15, 100, 100);
-            
-            [spinner setFrame:rect];
+            [spinner setFrame:CGRectMake((sortBar.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 15, spinner.frame.size.width, spinner.frame.size.height)];
         }
         // If sortBar is not hidden place spinner below sortBar
         else
         {
-            [spinner setFrame:CGRectMake((self.view.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 50, 100, 100)];
+            [spinner setFrame:CGRectMake((sortBar.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 50, spinner.frame.size.width, spinner.frame.size.height)];
         }
         
-        // Add spinner to view & start animating
-        [self.view addSubview:spinner];
+        // Show & Start animation
         [spinner startAnimating];
     }
     else
     {
-        // Remove spinner from view & stop animating
-        [spinner removeFromSuperview];
+        // Hide & Stop animation
         [spinner stopAnimating];
     }
 }
@@ -169,11 +173,16 @@
     // Show sorting bar
     [sortBar setHidden:NO];
     
+    if(currentlyLoadingMore)
+    {
+        // Reset LoadMoreView
+        [loadMoreView slideDown];
+    }
+    
     // Reset currentlyLoadingMore flag
     currentlyLoadingMore = false;
     
-    // Reset LoadMoreView
-    [loadMoreView slideDown];
+    
 }
 
 // EtsySearchDelegate noResultsFound method
@@ -320,6 +329,70 @@
         [self performNewSearch];
     }
 }
+
+- (void)setupLayoutConstraints
+{
+    // Constraints for Spinner
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:spinner
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:100.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:spinner
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:100.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:spinner
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    // Constraints for LoadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loadMoreView
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loadMoreView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:44.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loadMoreView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:44.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loadMoreView
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loadMoreView
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning

@@ -26,7 +26,7 @@
 @property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
 
 // Custom UIView and UIActivityIndicatorView for loading more results
-@property (nonatomic, strong) IBOutlet LoadMoreView *loadMoreView;
+@property (nonatomic, strong) LoadMoreView *loadMoreView;
 
 // UIView for sortbar
 @property (nonatomic, strong) IBOutlet UIToolbar *sortBar;

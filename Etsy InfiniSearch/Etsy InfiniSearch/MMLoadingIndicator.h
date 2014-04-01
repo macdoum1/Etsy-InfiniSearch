@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// Constants for size/duration
 #define INDICATOR_STROKE_WIDTH  10
 #define INDICATOR_RADIUS        20
 #define INDICATOR_DURATION      1

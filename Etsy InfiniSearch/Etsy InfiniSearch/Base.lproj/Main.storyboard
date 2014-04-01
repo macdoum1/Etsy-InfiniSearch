@@ -68,27 +68,6 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q7T-Xa-xqp" customClass="LoadMoreView">
-                                <rect key="frame" x="0.0" y="568" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="H8A-Dc-Ife">
-                                        <rect key="frame" x="150" y="10" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="H8A-Dc-Ife" firstAttribute="leading" secondItem="q7T-Xa-xqp" secondAttribute="leading" constant="150" id="EAr-a5-ILR"/>
-                                    <constraint firstAttribute="height" constant="40" id="N85-C2-HMS"/>
-                                    <constraint firstItem="H8A-Dc-Ife" firstAttribute="top" secondItem="q7T-Xa-xqp" secondAttribute="top" constant="10" id="Q7T-az-96g"/>
-                                    <constraint firstAttribute="bottom" secondItem="H8A-Dc-Ife" secondAttribute="bottom" constant="10" id="YZ2-Br-naL"/>
-                                    <constraint firstAttribute="trailing" secondItem="H8A-Dc-Ife" secondAttribute="trailing" constant="150" id="gvl-4p-56L"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="spinner" destination="H8A-Dc-Ife" id="Tnd-OW-nGQ"/>
-                                </connections>
-                            </view>
                             <searchBar contentMode="redraw" placeholder="What are you looking for?" translatesAutoresizingMaskIntoConstraints="NO" id="8R4-4b-Zl3">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -154,14 +133,10 @@
                         <constraints>
                             <constraint firstItem="UWf-jG-1n2" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0Sr-rq-mi3"/>
                             <constraint firstItem="8R4-4b-Zl3" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="0mr-Sf-IYE"/>
-                            <constraint firstAttribute="bottom" secondItem="q7T-Xa-xqp" secondAttribute="bottom" constant="-40" id="4Le-0M-oyg"/>
-                            <constraint firstItem="q7T-Xa-xqp" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5PG-HC-xtl"/>
-                            <constraint firstItem="q7T-Xa-xqp" firstAttribute="top" secondItem="2fi-mo-0CV" secondAttribute="bottom" id="7zw-A7-SCM"/>
                             <constraint firstItem="8R4-4b-Zl3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="AO0-Ve-REe"/>
                             <constraint firstAttribute="trailing" secondItem="8R4-4b-Zl3" secondAttribute="trailing" id="MA1-o1-bsv"/>
                             <constraint firstItem="B1Y-t6-5Ig" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="MXL-a5-Qcf"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="B1Y-t6-5Ig" secondAttribute="bottom" id="NeT-Tw-7Sf"/>
-                            <constraint firstAttribute="trailing" secondItem="q7T-Xa-xqp" secondAttribute="trailing" id="c3A-hP-CL3"/>
                             <constraint firstItem="B1Y-t6-5Ig" firstAttribute="top" secondItem="UWf-jG-1n2" secondAttribute="bottom" id="e0H-Lz-sMM"/>
                             <constraint firstAttribute="trailing" secondItem="UWf-jG-1n2" secondAttribute="trailing" id="w4U-Ep-6Zr"/>
                             <constraint firstItem="UWf-jG-1n2" firstAttribute="top" secondItem="8R4-4b-Zl3" secondAttribute="bottom" id="xD5-5t-LHw"/>
@@ -171,7 +146,6 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="etsySearchBar" destination="8R4-4b-Zl3" id="y35-rn-Wix"/>
-                        <outlet property="loadMoreView" destination="q7T-Xa-xqp" id="LHs-2g-8Qz"/>
                         <outlet property="searchResultsCollectionView" destination="B1Y-t6-5Ig" id="rj6-CI-G2x"/>
                         <outlet property="sortBar" destination="UWf-jG-1n2" id="LJ7-oF-wvQ"/>
                         <outlet property="sortButton" destination="b8l-PF-pOa" id="kN6-Oy-HYE"/>
