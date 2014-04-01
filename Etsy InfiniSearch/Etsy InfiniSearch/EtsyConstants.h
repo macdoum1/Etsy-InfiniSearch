@@ -9,8 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define API_KEY                 @"liwecjs0c3ssk6let4p1wqt9"
-#define NUM_RESULTS_PER_LOAD    30
+extern NSString * const API_KEY;
+extern int const NUM_RESULTS_PER_LOAD;
 
 @interface EtsyConstants : NSObject
 

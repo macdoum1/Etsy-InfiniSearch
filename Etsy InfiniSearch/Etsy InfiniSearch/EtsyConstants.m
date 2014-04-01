@@ -8,6 +8,9 @@
 
 #import "EtsyConstants.h"
 
+NSString* const API_KEY = @"liwecjs0c3ssk6let4p1wqt9";
+int const NUM_RESULTS_PER_LOAD = 30;
+
 @implementation EtsyConstants
 
 @end
