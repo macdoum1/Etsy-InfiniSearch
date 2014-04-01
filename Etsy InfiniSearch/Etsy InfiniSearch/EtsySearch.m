@@ -11,17 +11,21 @@
 @implementation EtsySearch
 {
     NSMutableData *responseData;
+    int currentOffset;
 }
 
 @synthesize delegate;
 
-- (id) initWithURLString:(NSString *)urlString
+- (id) initWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod
 {
     self = [super init];
     if(self)
     {
         // Initialize Response Data
         responseData = [[NSMutableData alloc]init];
+        
+        // Create NSString using API URL, API Key, and the contents of the search bar
+        NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
         
         // Create NSURL object from the URL String
         NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
@@ -35,6 +39,7 @@
         {
             [delegate searchFailed];
         }
+        currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     }
     return self;
 }

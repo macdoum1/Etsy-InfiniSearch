@@ -123,10 +123,7 @@
     
     EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
     
-    // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
-    
-    EtsySearch *search = [[EtsySearch alloc]initWithURLString:urlString];
+    EtsySearch *search = [[EtsySearch alloc]initWithKeyword:keyword offset:currentOffset andSortMethod:sortMethod];
     search.delegate = self;    
 }
 
@@ -188,18 +185,6 @@
     
     // Disable sort bar if no results are found
     [sortBar setHidden:YES];
-    
-    // Do not show no results found if no more listings exist
-    if(!currentlyLoadingMore)
-    {
-        // UIAlert for no results
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Results Found"
-                                                          message:@""
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-    }
 }
 
 // EtsySearchDelegate searchFailed method

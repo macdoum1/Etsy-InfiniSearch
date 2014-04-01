@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "EtsyListing.h"
 #import "NSString+HTML.h"
+#import "EtsySortMethod.h"
+#import "EtsyConstants.h"
 
 @protocol EtsySearchDelegate <NSObject>
 
@@ -28,6 +30,6 @@
 @property (nonatomic, weak) id <EtsySearchDelegate> delegate;
 
 // Initializes object and starts async connection
-- (id) initWithURLString:(NSString *)urlString;
+- (id) initWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod;
 
 @end
