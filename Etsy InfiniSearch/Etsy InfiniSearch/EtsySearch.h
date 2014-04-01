@@ -31,7 +31,7 @@
 @property (nonatomic) int currentOffset;
 
 // Starts async connection with parameters for API
-- (void) searchWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod;
+- (void) searchWithKeyword:(NSString *)keyword andSortMethod: (EtsySortMethod *)sortMethod;
 
 // Init method
 - (id) init;

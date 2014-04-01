@@ -13,9 +13,9 @@
 // Holds search results
 @property (nonatomic, strong) NSMutableArray *searchResultsArray;
 
-// Current keyword & current offset for loading more pages
+// Current keyword for loading more pages
 @property (nonatomic, strong) NSString *currentKeyword;
-@property (nonatomic) int currentOffset;
+
 
 // Current maximum scroll index
 @property (nonatomic) NSInteger maximumScrollIndex;
@@ -39,7 +39,7 @@
 @implementation EtsySearchViewController
 
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod,etsySearch;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,searchResultsArray,currentKeyword,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod,etsySearch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,9 +60,6 @@
     
     // Set UISearchBar Delegate
     etsySearchBar.delegate = self;
-    
-    // Set current offset to zero
-    currentOffset = 0;
     
     // Set up sort methods
     sortMethods = [[NSArray alloc]initWithObjects:
@@ -110,7 +107,7 @@
     maximumScrollIndex = 0;
     
     // Load search results
-    [self loadSearchResultsWithOffset:0];
+    [self loadSearchResultsWithOffset];
     
     // Switch search icon to loading indicator
     [spinner startAnimating];
@@ -119,14 +116,14 @@
     [searchResultsCollectionView reloadData];
 }
 
-- (void)loadSearchResultsWithOffset:(int)offset
+- (void)loadSearchResultsWithOffset
 {
     // UTF8 String encoding
     NSString *keyword = [currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
     
-    [etsySearch searchWithKeyword:keyword offset:currentOffset andSortMethod:sortMethod];
+    [etsySearch searchWithKeyword:keyword andSortMethod:sortMethod];
     etsySearch.delegate = self;
 }
 
@@ -139,7 +136,7 @@
     [loadMoreView slideUp];
     
     // Load more results
-    [self loadSearchResultsWithOffset:currentOffset];
+    [self loadSearchResultsWithOffset];
     
 }
 

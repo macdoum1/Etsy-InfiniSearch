@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void) searchWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod
+- (void) searchWithKeyword:(NSString *)keyword andSortMethod: (EtsySortMethod *)sortMethod
 {
     // Initialize Response Data
     responseData = [[NSMutableData alloc]init];
