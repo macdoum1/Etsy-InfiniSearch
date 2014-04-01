@@ -28,8 +28,13 @@
 @interface EtsySearch : NSObject
 
 @property (nonatomic, weak) id <EtsySearchDelegate> delegate;
+@property (nonatomic) int currentOffset;
 
-// Initializes object and starts async connection
-- (id) initWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod;
+// Starts async connection with parameters for API
+- (void) searchWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod;
+
+// Init method
+- (id) init;
+
 
 @end

@@ -31,12 +31,15 @@
 // Current sort method
 @property (nonatomic) NSInteger currentSortMethod;
 
+// Etsy Search Object
+@property (nonatomic, strong) EtsySearch *etsySearch;
+
 @end
 
 @implementation EtsySearchViewController
 
 
-@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod;
+@synthesize searchResultsCollectionView,etsySearchBar,loadMoreView,sortButton,sortBar,searchResultsArray,currentKeyword,currentOffset,maximumScrollIndex,currentlyLoadingMore,searchIcon,spinner,sortMethods,currentSortMethod,etsySearch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,6 +82,7 @@
     
     // Setup Autolayout constraints
     [self setupLayoutConstraints];
+    
 }
 
 #pragma mark - Searching & Loading
@@ -99,10 +103,9 @@
     // Initialize searchResultsArray
     searchResultsArray = [[NSMutableArray alloc]init];
     
-    // Ensure the offset is 0 with each new search
-    currentOffset = 0;
+    // Initialize EtsySearch object
+    etsySearch = [[EtsySearch alloc]init];
     
-    // ENCAPSULATE PAGINATION
     // Ensure scrollIndex is 0 with each new search
     maximumScrollIndex = 0;
     
@@ -123,8 +126,8 @@
     
     EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
     
-    EtsySearch *search = [[EtsySearch alloc]initWithKeyword:keyword offset:currentOffset andSortMethod:sortMethod];
-    search.delegate = self;    
+    [etsySearch searchWithKeyword:keyword offset:currentOffset andSortMethod:sortMethod];
+    etsySearch.delegate = self;
 }
 
 - (void) loadMoreResults
@@ -134,9 +137,6 @@
     
     // Show LoadMoreView as loading indicator
     [loadMoreView slideUp];
-    
-    // Update offset
-    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
     
     // Load more results
     [self loadSearchResultsWithOffset:currentOffset];
@@ -153,7 +153,7 @@
     // Reload UICollectionView Data
     [searchResultsCollectionView reloadData];
     
-    if(currentOffset == 0)
+    if(etsySearch.currentOffset == 0)
     {
         // Reset UICollectionView scroll (in case of previous scrolling)
         [searchResultsCollectionView scrollToItemAtIndexPath:0 atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
@@ -215,7 +215,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Determine if first element in each load
-    if(indexPath.row == currentOffset + 1)
+    if(indexPath.row == etsySearch.currentOffset + 1)
     {
         // Clear cache to prevent memory leaks
         [[SDImageCache sharedImageCache] clearMemory];

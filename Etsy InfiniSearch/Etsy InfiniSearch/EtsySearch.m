@@ -11,37 +11,41 @@
 @implementation EtsySearch
 {
     NSMutableData *responseData;
-    int currentOffset;
 }
 
-@synthesize delegate;
+@synthesize delegate,currentOffset;
 
-- (id) initWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod
+- (id) init
 {
     self = [super init];
     if(self)
     {
-        // Initialize Response Data
-        responseData = [[NSMutableData alloc]init];
-        
-        // Create NSString using API URL, API Key, and the contents of the search bar
-        NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
-        
-        // Create NSURL object from the URL String
-        NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
-        
-        // Create NSURLRequest object from URL
-        NSURLRequest *request = [[NSURLRequest alloc]initWithURL:requestURL];
-        
-        // Create NSURLConnection from request object
-        NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-        if(!connection)
-        {
-            [delegate searchFailed];
-        }
-        currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+        currentOffset = 0;
     }
     return self;
+}
+
+- (void) searchWithKeyword:(NSString *)keyword offset:(int)offset andSortMethod: (EtsySortMethod *)sortMethod
+{
+    // Initialize Response Data
+    responseData = [[NSMutableData alloc]init];
+    
+    // Create NSString using API URL, API Key, and the contents of the search bar
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,self.currentOffset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
+    
+    // Create NSURL object from the URL String
+    NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
+    
+    // Create NSURLRequest object from URL
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:requestURL];
+    
+    // Create NSURLConnection from request object
+    NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    if(!connection)
+    {
+        [delegate searchFailed];
+    }
+    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
 }
 
 // NSURLConnection didReceiveResponse Method
