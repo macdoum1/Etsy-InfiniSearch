@@ -130,6 +130,7 @@
 
 - (void) loadMoreResults
 {
+    // Enable currently loading more flag to prevent extra loads
     currentlyLoadingMore = true;
     
     // Show LoadMoreView as loading indicator
