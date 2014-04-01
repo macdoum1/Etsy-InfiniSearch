@@ -80,6 +80,7 @@
     [self setupLayoutConstraints];
 }
 
+#pragma mark - Searching & Loading
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     // Dismiss keyboard once search is pressed
@@ -113,6 +114,35 @@
     [searchResultsCollectionView reloadData];
 }
 
+- (void)loadSearchResultsWithOffset:(int)offset
+{
+    // UTF8 String encoding
+    NSString *keyword = [currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
+    
+    // Create NSString using API URL, API Key, and the contents of the search bar
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
+    
+    EtsySearch *search = [[EtsySearch alloc]initWithURLString:urlString];
+    search.delegate = self;
+}
+
+- (void) loadMoreResults
+{
+    currentlyLoadingMore = true;
+    
+    // Show LoadMoreView as loading indicator
+    [loadMoreView slideUp];
+    
+    // Update offset
+    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
+    
+    // Load more results
+    [self loadSearchResultsWithOffset:currentOffset];
+    
+}
+
 - (void)toggleSearchIndicator:(int)flag
 {
     if(flag)
@@ -138,20 +168,10 @@
     }
 }
 
-- (void)loadSearchResultsWithOffset:(int)offset
-{
-    // UTF8 String encoding
-    NSString *keyword = [currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    EtsySortMethod *sortMethod = [sortMethods objectAtIndex:currentSortMethod];
 
-    // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
-    
-    EtsySearch *search = [[EtsySearch alloc]initWithURLString:urlString];
-    search.delegate = self;
-}
 
+
+#pragma mark - EtsySearchDelegate Methods
 // EtsySearchDelegate searchDidFinish method
 - (void)searchDidFinish:(NSMutableArray *)searchResults
 {
@@ -218,6 +238,7 @@
     [message show];
 }
 
+#pragma mark - UICollectionView Delegate Methods
 // Determines how many cells should be shown
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
@@ -279,20 +300,7 @@
     }
 }
 
-- (void) loadMoreResults
-{
-    currentlyLoadingMore = true;
-    
-    // Show LoadMoreView as loading indicator
-    [loadMoreView slideUp];
-    
-    // Update offset
-    currentOffset = currentOffset + NUM_RESULTS_PER_LOAD;
-    
-    // Load more results
-    [self loadSearchResultsWithOffset:currentOffset];
-    
-}
+#pragma mark - Sorting
 
 - (IBAction)sortBy:(id)sender
 {
@@ -330,6 +338,7 @@
     }
 }
 
+#pragma mark - AutoLayoutConstraints
 - (void)setupLayoutConstraints
 {
     // Constraints for Spinner

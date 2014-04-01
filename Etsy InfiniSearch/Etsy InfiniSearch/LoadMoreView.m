@@ -39,6 +39,7 @@
         // Setup autolayout
         [self setupLayoutConstraints];
         
+        // Start as hidden
         self.hidden = YES;
     }
     return self;
@@ -73,20 +74,6 @@
 
 - (void)setupLayoutConstraints
 {
-    /*[self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:20.0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:20.0]];*/
     [self addConstraint:[NSLayoutConstraint constraintWithItem:spinner
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
@@ -94,7 +81,6 @@
                                                           attribute:NSLayoutAttributeCenterX
                                                          multiplier:1.0
                                                            constant:0.0]];
-
 }
 
 @end

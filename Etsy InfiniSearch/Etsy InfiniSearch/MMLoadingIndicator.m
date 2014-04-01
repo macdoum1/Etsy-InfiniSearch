@@ -28,6 +28,7 @@
     return self;
 }
 
+
 - (void)drawRect:(CGRect)rect
 {
     // Get current context
@@ -46,6 +47,8 @@
     // Draw semi-circle
     CGContextStrokePath(context);
 }
+
+#pragma testPragma
 
 - (void) startAnimating
 {
