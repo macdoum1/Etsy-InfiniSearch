@@ -69,7 +69,8 @@
                    [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sort_on=score&sort_order=down"],nil];
     
     // Initialize indicator & add to superview
-    spinner = [[MMLoadingIndicator alloc]init];
+    spinner = [[MMLoadingIndicator alloc]initWithFrame:CGRectMake((sortBar.frame.size.width/2) - spinner.frame.size.width/2, searchResultsCollectionView.frame.origin.y + 50, spinner.frame.size.width, spinner.frame.size.height)];
+
     [self.view addSubview:spinner];
     
     // Initialize LoadMoreView offscreen & add to superview
@@ -101,6 +102,7 @@
     // Ensure the offset is 0 with each new search
     currentOffset = 0;
     
+    // ENCAPSULATE PAGINATION
     // Ensure scrollIndex is 0 with each new search
     maximumScrollIndex = 0;
     
@@ -108,7 +110,7 @@
     [self loadSearchResultsWithOffset:0];
     
     // Switch search icon to loading indicator
-    [self toggleSearchIndicator:1];
+    [spinner startAnimating];
     
     // Reload UICollectionView
     [searchResultsCollectionView reloadData];
@@ -125,7 +127,7 @@
     NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,offset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
     
     EtsySearch *search = [[EtsySearch alloc]initWithURLString:urlString];
-    search.delegate = self;
+    search.delegate = self;    
 }
 
 - (void) loadMoreResults
@@ -144,34 +146,6 @@
     
 }
 
-- (void)toggleSearchIndicator:(int)flag
-{
-    if(flag)
-    {
-        // If sortBar is hidden, place spinner below searchBar
-        if([sortBar isHidden])
-        {
-            [spinner setFrame:CGRectMake((sortBar.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 15, spinner.frame.size.width, spinner.frame.size.height)];
-        }
-        // If sortBar is not hidden place spinner below sortBar
-        else
-        {
-            [spinner setFrame:CGRectMake((sortBar.frame.size.width/2) - spinner.frame.size.width/2, sortBar.frame.origin.y + 50, spinner.frame.size.width, spinner.frame.size.height)];
-        }
-        
-        // Show & Start animation
-        [spinner startAnimating];
-    }
-    else
-    {
-        // Hide & Stop animation
-        [spinner stopAnimating];
-    }
-}
-
-
-
-
 #pragma mark - EtsySearchDelegate Methods
 // EtsySearchDelegate searchDidFinish method
 - (void)searchDidFinish:(NSMutableArray *)searchResults
@@ -189,7 +163,7 @@
     }
     
     // Switch loading indicator to search icon
-    [self toggleSearchIndicator:0];
+    [spinner stopAnimating];
     
     // Show sorting bar
     [sortBar setHidden:NO];
@@ -210,7 +184,7 @@
 - (void)noResultsFound
 {
     // Switch loading indicator to search icon
-    [self toggleSearchIndicator:0];
+    [spinner stopAnimating];
     
     // Disable sort bar if no results are found
     [sortBar setHidden:YES];
@@ -400,6 +374,9 @@
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0.0]];
+    
+    // Constraints for MMLoadingIndicator
+    
     
 }
 

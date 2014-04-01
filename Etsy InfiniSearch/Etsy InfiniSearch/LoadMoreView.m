@@ -56,6 +56,7 @@
                          [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y - self.frame.size.height, self.frame.size.width, self.frame.size.height)];
                      }
                      completion:nil];
+    
 }
 
 - (void)slideDown

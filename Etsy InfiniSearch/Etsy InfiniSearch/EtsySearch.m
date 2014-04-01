@@ -65,31 +65,38 @@
     // Parse response data to dictionary object using JSONSerialization
     NSDictionary *responseDataDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
-    // Alert delegate that search is finished and pass results
-    if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
+    if(error == NULL)
     {
-        // Initialize array for list of Etsy Listing Objects
-        NSMutableArray *parsedEtsyListings = [[NSMutableArray alloc]init];
-        
-        // Get results from dictionary
-        NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
-        
-        // Parse results into EtsyListing objects
-        for(NSDictionary *currentResult in allResults)
+        // Alert delegate that search is finished and pass results
+        if([[responseDataDictionary objectForKey:@"count"] intValue] > 0)
         {
-            // Initialize object with title and imageURL from dictionary
-            EtsyListing *currentListing = [[EtsyListing alloc]
-                                           initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
-                                           andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
-            // Add to array
-            [parsedEtsyListings addObject:currentListing];
-        }
+            // Initialize array for list of Etsy Listing Objects
+            NSMutableArray *parsedEtsyListings = [[NSMutableArray alloc]init];
+            
+            // Get results from dictionary
+            NSArray* allResults = [responseDataDictionary objectForKey:@"results"];
+            
+            // Parse results into EtsyListing objects
+            for(NSDictionary *currentResult in allResults)
+            {
+                // Initialize object with title and imageURL from dictionary
+                EtsyListing *currentListing = [[EtsyListing alloc]
+                                               initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
+                                               andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
+                // Add to array
+                [parsedEtsyListings addObject:currentListing];
+            }
 
-        [delegate searchDidFinish:parsedEtsyListings];
+            [delegate searchDidFinish:parsedEtsyListings];
+        }
+        else
+        {
+            [delegate noResultsFound];
+        }
     }
     else
     {
-        [delegate noResultsFound];
+        [delegate searchFailed];
     }
 }
 

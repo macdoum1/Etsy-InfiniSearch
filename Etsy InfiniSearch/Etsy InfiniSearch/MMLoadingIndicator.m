@@ -10,9 +10,9 @@
 
 @implementation MMLoadingIndicator
 
-- (id)init
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         
         // Set background of view to clear
