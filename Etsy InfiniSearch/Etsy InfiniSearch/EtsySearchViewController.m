@@ -112,6 +112,10 @@
     
     // Reload UICollectionView
     [_searchResultsCollectionView reloadData];
+    
+    // Wipe cache from both disk and memory to avoid any buildup
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 - (void)loadSearchResultsWithOffset
