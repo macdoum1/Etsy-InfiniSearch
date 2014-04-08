@@ -34,6 +34,9 @@
 // Etsy Search Object
 @property (nonatomic, strong) EtsySearch *etsySearch;
 
+// Custom UIView and UIActivityIndicatorView for loading more results
+@property (nonatomic, strong) LoadMoreView *loadMoreView;
+
 @end
 
 @implementation EtsySearchViewController

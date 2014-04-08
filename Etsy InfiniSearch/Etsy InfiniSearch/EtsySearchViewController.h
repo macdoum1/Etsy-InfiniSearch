@@ -20,19 +20,16 @@
 @interface EtsySearchViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UISearchBarDelegate,UIScrollViewDelegate,UIActionSheetDelegate,EtsySearchDelegate>
 
 // UICollectionView to display search results
-@property (nonatomic, strong) IBOutlet UICollectionView *searchResultsCollectionView;
+@property (nonatomic, weak) IBOutlet UICollectionView *searchResultsCollectionView;
 
 // UISearchBar for entering keywords
-@property (nonatomic, strong) IBOutlet UISearchBar *etsySearchBar;
-
-// Custom UIView and UIActivityIndicatorView for loading more results
-@property (nonatomic, strong) LoadMoreView *loadMoreView;
+@property (nonatomic, weak) IBOutlet UISearchBar *etsySearchBar;
 
 // UIView for sortbar
-@property (nonatomic, strong) IBOutlet UIToolbar *sortBar;
+@property (nonatomic, weak) IBOutlet UIToolbar *sortBar;
 
 // UIButton for sorting
-@property (nonatomic, strong) IBOutlet UIButton *sortButton;
+@property (nonatomic, weak) IBOutlet UIButton *sortButton;
 
 - (IBAction)sortBy:(id)sender;
 
