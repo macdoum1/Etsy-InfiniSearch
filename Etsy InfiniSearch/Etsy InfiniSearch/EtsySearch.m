@@ -15,7 +15,7 @@
     self = [super init];
     if(self)
     {
-        self.currentOffset = 0;
+        _currentOffset = 0;
     }
     return self;
 }
@@ -23,7 +23,7 @@
 - (void) searchWithKeyword:(NSString *)keyword andSortMethod: (EtsySortMethod *)sortMethod
 {
     // Create NSString using API URL, API Key, and the contents of the search bar
-    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?apiself.key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,self.currentOffset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.etsy.com/v2/listings/active?api_key=%@&includes=MainImage&keywords=%@&offset=%d%@&limit=%d",API_KEY,keyword,self.currentOffset,sortMethod.sortPrefix,NUM_RESULTS_PER_LOAD];
     
     // Create NSURL object from the URL String
     NSURL *requestURL = [[NSURL alloc]initWithString:urlString];
@@ -56,8 +56,8 @@
                     {
                         // Initialize object with title and imageURL from dictionary
                         EtsyListing *currentListing = [[EtsyListing alloc]
-                                                       initWithTitle:[[currentResult objectForKey:@"title"] kvself.decodeHTMLCharacterEntities]
-                                                       andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"urlself.170x135"]];
+                                                       initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
+                                                       andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
                         // Add to array
                         [parsedEtsyListings addObject:currentListing];
                     }
@@ -79,7 +79,7 @@
             [self.delegate searchFailedWithError:connectionError];
         }
     }];
-    self.currentOffset = self.currentOffset + NUMself.RESULTSself.PERself.LOAD;
+    self.currentOffset = self.currentOffset + NUM_RESULTS_PER_LOAD;
 }
 
 @end
