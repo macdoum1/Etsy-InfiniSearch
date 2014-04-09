@@ -16,7 +16,6 @@
 // Current keyword for loading more pages
 @property (nonatomic, strong) NSString *currentKeyword;
 
-
 // Current maximum scroll index
 @property (nonatomic) NSInteger maximumScrollIndex;
 @property (nonatomic) BOOL currentlyLoadingMore;
@@ -190,14 +189,23 @@
 }
 
 // EtsySearchDelegate searchFailed method
-- (void)searchFailed
+- (void)searchFailedWithError:(NSError *)error
 {
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection failed"
-                                                      message:@"Please check your internet connection"
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
+    if([error code] == -1009)
+    {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Connection failed"
+                                                          message:[error localizedDescription]
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
+    
+    // Switch loading indicator to search icon
+    [_spinner stopAnimating];
+    
+    // Disable sort bar if no results are found
+    [_sortBar setHidden:YES];
 }
 
 #pragma mark - UICollectionView Delegate Methods
@@ -283,7 +291,6 @@
     [actionSheet showInView:self.view];
     
 }
-
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Ensure buttonIndex is in range, not cancel, and not the same as the current sort method

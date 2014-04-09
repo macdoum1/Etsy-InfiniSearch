@@ -21,7 +21,7 @@
 - (void)noResultsFound;
 
 // If search fails for any reason this method is invoked
-- (void)searchFailed;
+- (void)searchFailedWithError:(NSError *)error;
 
 @end
 

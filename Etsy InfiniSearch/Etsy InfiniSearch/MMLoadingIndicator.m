@@ -19,7 +19,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         // Set as hidden
-        self.hidden = YES;
+        self.alpha = 0;
         
         // Allows for autolayout
         [self setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -59,13 +59,22 @@
     rotate.repeatCount = HUGE_VALF;
     rotate.toValue = [NSNumber numberWithFloat:M_PI *2];
     [self.layer addAnimation:rotate forKey:@"rotation"];
-    self.hidden = NO;
+    
+    [UIView animateWithDuration:0.1
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{self.alpha = 1;}
+                     completion:nil];
 }
 
 - (void) stopAnimating
 {
     // Stop animation
-    self.hidden = YES;
+    [UIView animateWithDuration:0.05
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{self.alpha = 0;}
+                     completion:nil];
     [self.layer removeAnimationForKey:@"rotation"];
 }
 

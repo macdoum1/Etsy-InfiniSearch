@@ -41,7 +41,7 @@
     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
     if(!connection)
     {
-        [_delegate searchFailed];
+        [_delegate searchFailedWithError:nil];
     }
     _currentOffset = _currentOffset + NUM_RESULTS_PER_LOAD;
 }
@@ -63,7 +63,7 @@
   didFailWithError:(NSError *)error
 {
     // Alert delegate that search failed
-    [_delegate searchFailed];
+    [_delegate searchFailedWithError:error];
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -103,7 +103,7 @@
     }
     else
     {
-        [_delegate searchFailed];
+        [_delegate searchFailedWithError:error];
     }
 }
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2712E44518F4B33A0007AB92 /* EtsySearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2712E44418F4B33A0007AB92 /* EtsySearchTests.m */; };
-		2712E44718F4B6EA0007AB92 /* EtsySortMethodTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2712E44618F4B6EA0007AB92 /* EtsySortMethodTests.m */; };
 		2721954518E3646B00523167 /* EtsySortMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954418E3646B00523167 /* EtsySortMethod.m */; };
 		2721954B18E36A0800523167 /* EtsySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2721954A18E36A0800523167 /* EtsySearch.m */; };
 		274EC5F718D51A0A00791BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EC5F618D51A0A00791BEF /* Foundation.framework */; };
@@ -58,7 +57,6 @@
 
 /* Begin PBXFileReference section */
 		2712E44418F4B33A0007AB92 /* EtsySearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySearchTests.m; sourceTree = "<group>"; };
-		2712E44618F4B6EA0007AB92 /* EtsySortMethodTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySortMethodTests.m; sourceTree = "<group>"; };
 		2721954318E3646B00523167 /* EtsySortMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsySortMethod.h; sourceTree = "<group>"; };
 		2721954418E3646B00523167 /* EtsySortMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EtsySortMethod.m; sourceTree = "<group>"; };
 		2721954918E36A0800523167 /* EtsySearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtsySearch.h; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 			children = (
 				274EC61C18D51A0A00791BEF /* Supporting Files */,
 				2712E44418F4B33A0007AB92 /* EtsySearchTests.m */,
-				2712E44618F4B6EA0007AB92 /* EtsySortMethodTests.m */,
 			);
 			path = "Etsy InfiniSearchTests";
 			sourceTree = "<group>";
@@ -448,7 +445,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2712E44518F4B33A0007AB92 /* EtsySearchTests.m in Sources */,
-				2712E44718F4B6EA0007AB92 /* EtsySortMethodTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
