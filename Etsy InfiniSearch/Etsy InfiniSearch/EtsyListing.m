@@ -10,13 +10,13 @@
 
 @implementation EtsyListing
 
-- (id)initWithTitle:(NSString *)title andListingImageURL:(NSString *)url
+- (id)initWithTitle:(NSString *)title andListingImageURLString:(NSString *)url
 {
     self = [super init];
     if(self)
     {
         self.listingTitle = title;
-        self.listingImageURL = url;
+        self.listingImageURL = [NSURL URLWithString:url];
     }
     return self;
 }

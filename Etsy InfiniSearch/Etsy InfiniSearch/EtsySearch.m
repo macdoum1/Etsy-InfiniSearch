@@ -57,7 +57,7 @@
                         // Initialize object with title and imageURL from dictionary
                         EtsyListing *currentListing = [[EtsyListing alloc]
                                                        initWithTitle:[[currentResult objectForKey:@"title"] kv_decodeHTMLCharacterEntities]
-                                                       andListingImageURL:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
+                                                       andListingImageURLString:[[currentResult objectForKey:@"MainImage"] objectForKey:@"url_170x135"]];
                         // Add to array
                         [parsedEtsyListings addObject:currentListing];
                     }

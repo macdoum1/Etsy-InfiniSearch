@@ -11,8 +11,8 @@
 @interface EtsyListing : NSObject
 
 @property (nonatomic, strong) NSString *listingTitle;
-@property (nonatomic, strong) NSString *listingImageURL;
+@property (nonatomic, strong) NSURL *listingImageURL;
 
-- (id)initWithTitle:(NSString *)title andListingImageURL:(NSString *)url;
+- (id)initWithTitle:(NSString *)title andListingImageURLString:(NSString *)url;
 
 @end

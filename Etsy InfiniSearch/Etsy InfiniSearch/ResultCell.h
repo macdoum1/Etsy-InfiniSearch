@@ -15,6 +15,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *listingLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *listingImage;
 
-- (void)setImage:(NSString *)imageURL andTitle:(NSString *)title;
+- (void)setImage:(NSURL *)imageURL andTitle:(NSString *)title;
 
 @end

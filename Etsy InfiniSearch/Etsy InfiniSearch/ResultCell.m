@@ -34,10 +34,10 @@
 }
 
 
-- (void)setImage:(NSString *)imageURL andTitle:(NSString *)title
+- (void)setImage:(NSURL *)imageURL andTitle:(NSString *)title
 {
     // Set Image with URL using SDWebImage (supports cacheing and loading asynchronously)
-    [self.listingImage setImageWithURL:[NSURL URLWithString:imageURL]];
+    [self.listingImage setImageWithURL:imageURL];
     
     // Set UILabel
     self.listingLabel.text = title;
