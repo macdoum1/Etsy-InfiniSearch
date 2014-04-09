@@ -53,29 +53,29 @@
 {
     [super viewDidLoad];
     // Set UICollectionView Delegate
-    _searchResultsCollectionView.delegate = self;
+    self.searchResultsCollectionView.delegate = self;
     
     // Set UICollectionView Source
-    _searchResultsCollectionView.dataSource = self;
+    self.searchResultsCollectionView.dataSource = self;
     
     // Set UISearchBar Delegate
-    _etsySearchBar.delegate = self;
+    self.etsySearchBar.delegate = self;
     
     // Set up sort methods
-    _sortMethods = [[NSArray alloc]initWithObjects:
+    self.sortMethods = [[NSArray alloc]initWithObjects:
                    [[EtsySortMethod alloc]initWithName:@"Most Recent" andPrefix:@""],
-                   [[EtsySortMethod alloc]initWithName:@"Highest Price" andPrefix:@"&sort_on=price&sort_order=down"],
-                   [[EtsySortMethod alloc]initWithName:@"Lowest Price" andPrefix:@"&sort_on=price&sort_order=up"],
-                   [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sort_on=score&sort_order=down"],nil];
+                   [[EtsySortMethod alloc]initWithName:@"Highest Price" andPrefix:@"&sortself.on=price&sortself.order=down"],
+                   [[EtsySortMethod alloc]initWithName:@"Lowest Price" andPrefix:@"&sortself.on=price&sortself.order=up"],
+                   [[EtsySortMethod alloc]initWithName:@"Highest Score" andPrefix:@"&sortself.on=score&sortself.order=down"],nil];
     
     // Initialize indicator & add to superview
-    _spinner = [[MMLoadingIndicator alloc]initWithFrame:CGRectMake((_sortBar.frame.size.width/2) - _spinner.frame.size.width/2, _searchResultsCollectionView.frame.origin.y + 50, _spinner.frame.size.width, _spinner.frame.size.height)];
+    self.spinner = [[MMLoadingIndicator alloc]initWithFrame:CGRectMake((self.sortBar.frame.size.width/2) - self.spinner.frame.size.width/2, self.searchResultsCollectionView.frame.origin.y + 50, self.spinner.frame.size.width, self.spinner.frame.size.height)];
 
-    [self.view addSubview:_spinner];
+    [self.view addSubview:self.spinner];
     
     // Initialize LoadMoreView offscreen & add to superview
     self.loadMoreView = [[LoadMoreView alloc]initWithFrame:CGRectMake(0, 568, 320, 44)];
-    [self.view addSubview:_loadMoreView];
+    [self.view addSubview:self.loadMoreView];
     
     // Setup Autolayout constraints
     [self setupLayoutConstraints];
@@ -89,7 +89,7 @@
     [searchBar resignFirstResponder];
     
     // Store current keyword for loading more results later
-    _currentKeyword = searchBar.text;
+    self.currentKeyword = searchBar.text;
     
     // Perform new search
     [self performNewSearch];
@@ -98,22 +98,22 @@
 - (void)performNewSearch
 {
     // Initialize searchResultsArray
-    _searchResultsArray = [[NSMutableArray alloc]init];
+    self.searchResultsArray = [[NSMutableArray alloc]init];
     
     // Initialize EtsySearch object
-    _etsySearch = [[EtsySearch alloc]init];
+    self.etsySearch = [[EtsySearch alloc]init];
     
     // Ensure scrollIndex is 0 with each new search
-    _maximumScrollIndex = 0;
+    self.maximumScrollIndex = 0;
     
     // Load search results
     [self loadSearchResultsWithOffset];
     
     // Switch search icon to loading indicator
-    [_spinner startAnimating];
+    [self.spinner startAnimating];
     
     // Reload UICollectionView
-    [_searchResultsCollectionView reloadData];
+    [self.searchResultsCollectionView reloadData];
     
     // Wipe cache from both disk and memory to avoid any buildup
     [[SDImageCache sharedImageCache] clearDisk];
@@ -123,21 +123,21 @@
 - (void)loadSearchResultsWithOffset
 {
     // UTF8 String encoding
-    NSString *keyword = [_currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *keyword = [self.currentKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    EtsySortMethod *sortMethod = [_sortMethods objectAtIndex:_currentSortMethod];
+    EtsySortMethod *sortMethod = [self.sortMethods objectAtIndex:self.currentSortMethod];
     
-    [_etsySearch searchWithKeyword:keyword andSortMethod:sortMethod];
-    _etsySearch.delegate = self;
+    [self.etsySearch searchWithKeyword:keyword andSortMethod:sortMethod];
+    self.etsySearch.delegate = self;
 }
 
 - (void) loadMoreResults
 {
     // Enable currently loading more flag to prevent extra loads
-    _currentlyLoadingMore = true;
+    self.currentlyLoadingMore = true;
     
     // Show LoadMoreView as loading indicator
-    [_loadMoreView slideUp];
+    [self.loadMoreView slideUp];
     
     // Load more results
     [self loadSearchResultsWithOffset];
@@ -149,31 +149,31 @@
 - (void)searchDidFinish:(NSMutableArray *)searchResults
 {
     // Append objects from EtsySearch to array to be displayed
-    [_searchResultsArray addObjectsFromArray:searchResults];
+    [self.searchResultsArray addObjectsFromArray:searchResults];
     
     // Reload UICollectionView Data
-    [_searchResultsCollectionView reloadData];
+    [self.searchResultsCollectionView reloadData];
     
-    if(_etsySearch.currentOffset == 0)
+    if(self.etsySearch.currentOffset == 0)
     {
         // Reset UICollectionView scroll (in case of previous scrolling)
-        [_searchResultsCollectionView scrollToItemAtIndexPath:0 atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        [self.searchResultsCollectionView scrollToItemAtIndexPath:0 atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     
     // Switch loading indicator to search icon
-    [_spinner stopAnimating];
+    [self.spinner stopAnimating];
     
     // Show sorting bar
-    [_sortBar setHidden:NO];
+    [self.sortBar setHidden:NO];
     
-    if(_currentlyLoadingMore)
+    if(self.currentlyLoadingMore)
     {
         // Reset LoadMoreView
-        [_loadMoreView slideDown];
+        [self.loadMoreView slideDown];
     }
     
     // Reset currentlyLoadingMore flag
-    _currentlyLoadingMore = false;
+    self.currentlyLoadingMore = false;
     
     
 }
@@ -182,10 +182,10 @@
 - (void)noResultsFound
 {
     // Switch loading indicator to search icon
-    [_spinner stopAnimating];
+    [self.spinner stopAnimating];
     
     // Disable sort bar if no results are found
-    [_sortBar setHidden:YES];
+    [self.sortBar setHidden:YES];
 }
 
 // EtsySearchDelegate searchFailed method
@@ -202,10 +202,10 @@
     }
     
     // Switch loading indicator to search icon
-    [_spinner stopAnimating];
+    [self.spinner stopAnimating];
     
     // Disable sort bar if no results are found
-    [_sortBar setHidden:YES];
+    [self.sortBar setHidden:YES];
 }
 
 #pragma mark - UICollectionView Delegate Methods
@@ -213,7 +213,7 @@
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
     // Returns number of items in searchResultsArray
-    return [_searchResultsArray count];
+    return [self.searchResultsArray count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
@@ -225,7 +225,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Determine if first element in each load
-    if(indexPath.row == _etsySearch.currentOffset + 1)
+    if(indexPath.row == self.etsySearch.currentOffset + 1)
     {
         // Clear cache to prevent memory leaks
         [[SDImageCache sharedImageCache] clearMemory];
@@ -234,7 +234,7 @@
     ResultCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ResultCell" forIndexPath:indexPath];
     
     // Get correct listing from searchResultsArray
-    EtsyListing *tempListing = [_searchResultsArray objectAtIndex:indexPath.row];
+    EtsyListing *tempListing = [self.searchResultsArray objectAtIndex:indexPath.row];
     
     // Format and set both the label and image of the cell
     [cell setImage:tempListing.listingImageURL andTitle:tempListing.listingTitle];
@@ -252,19 +252,19 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // Get all indexPaths from UICollectionView that are currently visible
-    NSArray *visibleIndexPaths = [_searchResultsCollectionView indexPathsForVisibleItems];
+    NSArray *visibleIndexPaths = [self.searchResultsCollectionView indexPathsForVisibleItems];
     for(NSIndexPath *indexPath in visibleIndexPaths)
     {
         // Determine the highest indexPath that is visible
-        if(indexPath.row > _maximumScrollIndex)
+        if(indexPath.row > self.maximumScrollIndex)
         {
-            _maximumScrollIndex = indexPath.row;
+            self.maximumScrollIndex = indexPath.row;
         }
     }
     
     // If the highest visible indexPath is the same as the last index of the searchResults array
     // load more results & filters out extraneous loads
-    if((_maximumScrollIndex == [_searchResultsArray count] - 1) && !_currentlyLoadingMore)
+    if((self.maximumScrollIndex == [self.searchResultsArray count] - 1) && !self.currentlyLoadingMore)
     {
         [self loadMoreResults];
     }
@@ -278,14 +278,14 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By:" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     // Add sort methods to action sheet from array
-    for(EtsySortMethod *s in _sortMethods)
+    for(EtsySortMethod *s in self.sortMethods)
     {
         [actionSheet addButtonWithTitle:s.sortMethodName];
     }
     
     // Add cancel button to action sheet (to ensure its at the end of the actionsheet)
     [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet setCancelButtonIndex:[_sortMethods count]];
+    [actionSheet setCancelButtonIndex:[self.sortMethods count]];
     
     // Show actionsheet
     [actionSheet showInView:self.view];
@@ -294,13 +294,13 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     // Ensure buttonIndex is in range, not cancel, and not the same as the current sort method
-    if(_currentKeyword != NULL && buttonIndex < [_sortMethods count] && !(_currentSortMethod == buttonIndex))
+    if(self.currentKeyword != NULL && buttonIndex < [self.sortMethods count] && !(self.currentSortMethod == buttonIndex))
     {
         // Set current sort method
-        _currentSortMethod = buttonIndex;
+        self.currentSortMethod = buttonIndex;
         
         // Set button text to match current sort method
-        [_sortButton setTitle:((EtsySortMethod *)[_sortMethods objectAtIndex:buttonIndex]).sortMethodName forState:UIControlStateNormal];
+        [self.sortButton setTitle:((EtsySortMethod *)[self.sortMethods objectAtIndex:buttonIndex]).sortMethodName forState:UIControlStateNormal];
         
         // Perform new search
         [self performNewSearch];
@@ -311,21 +311,21 @@
 - (void)setupLayoutConstraints
 {
     // Constraints for Spinner
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_spinner
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:100.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_spinner
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:100.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_spinner
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -333,35 +333,35 @@
                                                          multiplier:1.0
                                                            constant:0.0]];
     // Constraints for LoadMoreView
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_loadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.loadMoreView
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeWidth
                                                          multiplier:1.0
                                                            constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_loadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.loadMoreView
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:44.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_loadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.loadMoreView
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:44.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_loadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.loadMoreView
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_loadMoreView
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.loadMoreView
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
